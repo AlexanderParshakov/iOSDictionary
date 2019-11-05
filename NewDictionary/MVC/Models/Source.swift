@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-class Source: Decodable {
+struct Source: Decodable {
     
-    let id: Int
+    var id: Int
     var name: String
     var imageData: Data
     var wordUnits: [WordUnit]?
@@ -25,5 +25,18 @@ class Source: Decodable {
         self.id = id
         self.name = name
         self.imageData = imageData
+    }
+    
+    init(realmSource: RealmSource) {
+        self.init()
+        
+        self.id = Int(realmSource.id)!
+        self.name = realmSource.name
+        self.imageData = realmSource.imageData
+        
+        realmSource.realmWordUnits.forEach({ (realmWordUnit) in
+            let wordUnit = WordUnit(realmWordUnit: realmWordUnit)
+            self.wordUnits?.append(wordUnit)
+        })
     }
 }

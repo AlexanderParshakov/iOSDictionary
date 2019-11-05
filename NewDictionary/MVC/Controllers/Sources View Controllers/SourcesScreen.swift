@@ -19,35 +19,26 @@ class SourcesScreen: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        startAnimation()
+        RealmManager.printPath()
+        AnimationManager.curtainScreen(animationView: animationView, tableView: sourcesTableView)
         setupScreen()
         loadSources()
     }
-    
-    func startAnimation() {
-        animationView.animation = Animation.named(Constants.ResourceNames.basicLoader)
-        animationView.loopMode = .loop
-        animationView.play()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationItem.title = Constants.Localizables.Sources.mainTitle
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        
+        self.navigationItem.title = " "
     }
     func setupScreen() {
-        self.title = "Sources"
-        sourcesTableView.isHidden = true
+        self.title = Constants.Localizables.Sources.mainTitle
         sourcesTableView.delegate = self
         sourcesTableView.dataSource = self
-    }
-    func loadSources() {
-        NetworkManager.Sources.getAll { [weak self] (result) in
-            switch result {
-            case .success(let sources):
-                self?.sourceList = sources
-                self?.sourcesTableView.reloadData()
-                self?.sourcesTableView.isHidden = false
-                self?.animationView.removeFromSuperview()
-            case .failure(let error):
-                print("Error: ", error)
-            }
-        }
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -63,6 +54,31 @@ class SourcesScreen: UIViewController {
     
 }
 
+// MARK: - Data Loading
+extension SourcesScreen {
+    
+    func loadSources() {
+        sourceList = RealmManager.Sources.retrieve()
+        if (sourceList?.count ?? 0 > 0) {
+            AnimationManager.uncurtainScreen(animationView: animationView, tableView: sourcesTableView)
+        }
+            
+        else {
+            NetworkManager.Sources.getAll { [weak self] (result) in
+                switch result {
+                    case .success(let sources):
+                        self?.sourceList = sources
+                        self?.sourcesTableView.reloadData()
+                        guard let animation = self?.animationView else { return }
+                        AnimationManager.uncurtainScreen(animationView: animation, tableView: self?.sourcesTableView)
+                    case .failure(let error):
+                        print("Error: ", error)
+                }
+            }
+        }
+    }
+}
+
 
 extension SourcesScreen: UITableViewDataSource, UITableViewDelegate {
     
@@ -71,7 +87,7 @@ extension SourcesScreen: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let source = (sourceList?[indexPath.row])!
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Literals.Source.sourceCell) as! SourcesViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Localizables.Sources.sourceCell) as! SourcesViewCell
         cell.setSource(source: source)
         cell.selectionStyle = .none
         

@@ -8,12 +8,12 @@
 
 import Foundation
 
-class WordUnitResults: Decodable {
+struct WordUnitResults: Decodable {
     var results: [WordUnit]
 }
 
 
-class WordUnit: Decodable {
+struct WordUnit: Decodable {
     
     var id:Int
     var content:String
@@ -32,16 +32,13 @@ class WordUnit: Decodable {
         note = ""
         tags = [Tag]()
     }
-    
-    convenience init(word content:String, withId Id:Int, means meaning:String = "", withExample example:String = "", withNote note:String = "") {
-        
+    init(realmWordUnit: RealmWordUnit) {
         self.init()
-        self.id = Id
-        self.content = content
-        self.meaning = meaning
-        self.example = example
-        self.note = note
-        
+        self.id = Int(realmWordUnit.id)!
+        self.content = realmWordUnit.content
+        self.meaning = realmWordUnit.meaning
+        self.example = realmWordUnit.example
+        self.note = realmWordUnit.note
     }
 }
 

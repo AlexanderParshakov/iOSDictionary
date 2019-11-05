@@ -1,0 +1,54 @@
+
+/* Class = "UILabel"; text = "Theme"; ObjectID = "31S-cJ-oED"; */
+"31S-cJ-oED.text" = "Тема";
+
+/* Class = "UILabel"; text = "Source"; ObjectID = "38g-6C-eli"; */
+"38g-6C-eli.text" = "Источник";
+
+/* Class = "UILabel"; text = "Initials"; ObjectID = "ES7-WF-weG"; */
+"ES7-WF-weG.text" = "Имя и фамилия";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "Fb2-6f-nzj"; */
+"Fb2-6f-nzj.title" = "Настройки";
+
+/* Class = "UILabel"; text = "My Profile"; ObjectID = "HpA-dk-oj2"; */
+"HpA-dk-oj2.text" = "Мой профиль";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "JxV-dw-Awk"; */
+"JxV-dw-Awk.title" = "Item";
+
+/* Class = "UILabel"; text = "Preferred Words Language"; ObjectID = "K7M-gL-iwO"; */
+"K7M-gL-iwO.text" = "Предпочитаемый язык словарных единиц";
+
+/* Class = "UINavigationController"; title = "Source Navigation Controller"; ObjectID = "UqV-Y9-gHI"; */
+"UqV-Y9-gHI.title" = "Source Navigation Controller";
+
+/* Class = "UILabel"; text = "App Language"; ObjectID = "VgE-tp-n1V"; */
+"VgE-tp-n1V.text" = "Язык приложения";
+
+/* Class = "UILabel"; text = "Content"; ObjectID = "W6s-wi-zVr"; */
+"W6s-wi-zVr.text" = "Content";
+
+/* Class = "UILabel"; text = "Language according to which words should be loaded"; ObjectID = "Zmh-ff-CfT"; */
+"Zmh-ff-CfT.text" = "Язык, для которого изначально будут загружаться слова";
+
+/* Class = "UILabel"; text = "Source"; ObjectID = "aoi-dx-UQV"; */
+"aoi-dx-UQV.text" = "Source";
+
+/* Class = "UITableViewController"; title = "Settings"; ObjectID = "eYe-ic-0Rg"; */
+"eYe-ic-0Rg.title" = "Settings";
+
+/* Class = "UIViewController"; title = "Sources Screen"; ObjectID = "h0i-N6-dQO"; */
+"h0i-N6-dQO.title" = "Sources Screen";
+
+/* Class = "UITabBarItem"; title = "Sources"; ObjectID = "hUI-e1-akh"; */
+"hUI-e1-akh.title" = "Sources";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "htl-Mv-fVy"; */
+"htl-Mv-fVy.title" = "Item";
+
+/* Class = "UILabel"; text = "meaning"; ObjectID = "tGR-eZ-Gr0"; */
+"tGR-eZ-Gr0.text" = "meaning";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "wrZ-Ob-PxE"; */
+"wrZ-Ob-PxE.title" = "Item";

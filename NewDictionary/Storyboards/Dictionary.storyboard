@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sBO-IS-Iv0">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Dictionary Screen-->
+        <scene sceneID="13D-eN-RYm">
+            <objects>
+                <viewController id="x7w-JV-xuM" customClass="DictionaryScreen" customModule="NewDictionary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="suh-iJ-NCv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9hX-Gg-6lj">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DictionaryCell" rowHeight="70.5" id="NRa-PZ-Pg4" customClass="DictionaryViewCell" customModule="NewDictionary" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="70.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NRa-PZ-Pg4" id="pQH-cv-SPg">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="70.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5tR-mu-yQD">
+                                                    <rect key="frame" x="20" y="5" width="384" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="200" id="TAr-tE-qM5"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="23"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="meaning" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="Loq-4F-Gro">
+                                                    <rect key="frame" x="20" y="40" width="384" height="17.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="ssp-mE-S7e"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Loq-4F-Gro" firstAttribute="leading" secondItem="pQH-cv-SPg" secondAttribute="leading" constant="20" id="Ktg-YT-jLI"/>
+                                                <constraint firstAttribute="bottom" secondItem="Loq-4F-Gro" secondAttribute="bottom" constant="15" id="MuR-qH-BfW"/>
+                                                <constraint firstItem="5tR-mu-yQD" firstAttribute="top" secondItem="pQH-cv-SPg" secondAttribute="top" constant="5" id="Qag-rY-ScZ"/>
+                                                <constraint firstItem="Loq-4F-Gro" firstAttribute="top" secondItem="5tR-mu-yQD" secondAttribute="bottom" constant="5" id="Xxt-kE-GJa"/>
+                                                <constraint firstAttribute="trailing" secondItem="Loq-4F-Gro" secondAttribute="trailing" constant="10" id="gHC-Yx-p87"/>
+                                                <constraint firstAttribute="trailing" secondItem="5tR-mu-yQD" secondAttribute="trailing" constant="10" id="gdr-FF-v6e"/>
+                                                <constraint firstItem="5tR-mu-yQD" firstAttribute="leading" secondItem="pQH-cv-SPg" secondAttribute="leading" constant="20" id="qAv-v9-3eC"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="contentLabel" destination="5tR-mu-yQD" id="Cmy-co-K0b"/>
+                                            <outlet property="meaningLabel" destination="Loq-4F-Gro" id="Ue3-vh-jWB"/>
+                                            <segue destination="hff-Cu-yiz" kind="show" identifier="showWord" id="OKB-e1-aOb"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqC-In-Yep" customClass="AnimationView" customModule="Lottie">
+                                <rect key="frame" x="87" y="384" width="240" height="128"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="2JG-l9-laS"/>
+                                    <constraint firstAttribute="width" constant="240" id="m4Y-Hi-K1w"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="9hX-Gg-6lj" firstAttribute="top" secondItem="suh-iJ-NCv" secondAttribute="top" id="0Ch-gh-woG"/>
+                            <constraint firstItem="IUE-lm-UNa" firstAttribute="trailing" secondItem="9hX-Gg-6lj" secondAttribute="trailing" id="53x-mj-VJg"/>
+                            <constraint firstItem="IUE-lm-UNa" firstAttribute="bottom" secondItem="9hX-Gg-6lj" secondAttribute="bottom" id="JBd-Y6-dMP"/>
+                            <constraint firstItem="oqC-In-Yep" firstAttribute="centerX" secondItem="suh-iJ-NCv" secondAttribute="centerX" id="L6N-kK-RHY"/>
+                            <constraint firstItem="9hX-Gg-6lj" firstAttribute="leading" secondItem="IUE-lm-UNa" secondAttribute="leading" id="U2P-rQ-1H8"/>
+                            <constraint firstItem="oqC-In-Yep" firstAttribute="centerY" secondItem="suh-iJ-NCv" secondAttribute="centerY" id="qGL-yO-1wZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="IUE-lm-UNa"/>
+                    </view>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="rLw-wO-e2l">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="aU9-FA-7Mg"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addBarButton" destination="aU9-FA-7Mg" id="OB5-Yi-Kj6"/>
+                        <outlet property="animationView" destination="oqC-In-Yep" id="rsj-IL-5Dk"/>
+                        <outlet property="wordTableView" destination="9hX-Gg-6lj" id="tMf-cW-opc"/>
+                        <segue destination="uhJ-OG-yMA" kind="show" identifier="AddWord" id="fni-qb-9lE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JXd-h9-8ks" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1011.5942028985507" y="-1453.125"/>
+        </scene>
+        <!--Add Word Screen-->
+        <scene sceneID="WDO-0a-du2">
+            <objects>
+                <viewController id="uhJ-OG-yMA" customClass="AddWordScreen" customModule="NewDictionary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rSx-9G-umz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="liG-7o-Jn1"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="c3V-e5-gg0"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7N0-aW-xhl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1787" y="-1130"/>
+        </scene>
+        <!--Word Screen-->
+        <scene sceneID="Zfg-gA-YLx">
+            <objects>
+                <viewController id="hff-Cu-yiz" customClass="WordScreen" customModule="NewDictionary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tWI-tg-L87">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J51-I3-nxo">
+                                <rect key="frame" x="0.0" y="88" width="414" height="726"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NEo-PU-sDp">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="385"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="730" verticalCompressionResistancePriority="730" text="Content" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="euY-np-oxr">
+                                                <rect key="frame" x="20" y="15" width="374" height="33.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="9zy-h7-kkT"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="30"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meaning" textAlignment="justified" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="none" minimumFontSize="18" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cCr-uy-don">
+                                                <rect key="frame" x="20" y="78.5" width="374" height="25.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="400" id="Vow-Em-Cfm"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="23"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Example:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="Dx7-JA-noi">
+                                                <rect key="frame" x="20" y="124" width="374" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="Uh7-Q4-4vg"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Example" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="uxV-PM-dWW">
+                                                <rect key="frame" x="20" y="164" width="374" height="24.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="150" id="oMt-LL-Rrj"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="NSD-El-l1n">
+                                                <rect key="frame" x="20" y="208.5" width="54.5" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="YcP-Xd-ycy"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="vOF-8x-VCA">
+                                                <rect key="frame" x="20" y="248.5" width="374" height="24.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="400" id="so3-J1-1v7"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="bRe-LZ-CK1">
+                                                <rect key="frame" x="20" y="293" width="51" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="WBz-d8-Wmj"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lph-3Z-R1t" customClass="TagListView" customModule="TagListView">
+                                                <rect key="frame" x="20" y="343" width="374" height="42"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="14"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="enableRemoveButton" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="removeButtonIconSize">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="removeIconLineWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="removeIconLineColor">
+                                                        <color key="value" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.57647058819999997" green="0.028912339539999998" blue="0.021470207389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="tagBackgroundColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingY">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingX">
+                                                        <real key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="marginY">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                        <color key="value" red="0.57647058819999997" green="0.028912339539999998" blue="0.021470207389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                        <size key="value" width="0.0" height="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="marginX">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedTextColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="tagSelectedBackgroundColor">
+                                                        <color key="value" red="0.57647058819999997" green="0.028912339539999998" blue="0.021470207389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="lph-3Z-R1t" firstAttribute="leading" secondItem="NEo-PU-sDp" secondAttribute="leading" constant="20" id="1Ui-Oy-HFO"/>
+                                            <constraint firstAttribute="trailing" secondItem="euY-np-oxr" secondAttribute="trailing" constant="20" id="34P-Td-WHJ"/>
+                                            <constraint firstItem="vOF-8x-VCA" firstAttribute="leading" secondItem="NEo-PU-sDp" secondAttribute="leading" constant="20" id="E7Y-Fi-DeH"/>
+                                            <constraint firstItem="uxV-PM-dWW" firstAttribute="top" secondItem="Dx7-JA-noi" secondAttribute="bottom" constant="10" id="Guq-tx-pen"/>
+                                            <constraint firstItem="Dx7-JA-noi" firstAttribute="leading" secondItem="NEo-PU-sDp" secondAttribute="leading" constant="20" id="KJT-PE-FG6"/>
+                                            <constraint firstItem="vOF-8x-VCA" firstAttribute="top" secondItem="NSD-El-l1n" secondAttribute="bottom" constant="10" id="Ksi-nE-uC0"/>
+                                            <constraint firstItem="lph-3Z-R1t" firstAttribute="top" secondItem="bRe-LZ-CK1" secondAttribute="bottom" constant="20" id="NI1-yB-pqk"/>
+                                            <constraint firstItem="NSD-El-l1n" firstAttribute="leading" secondItem="NEo-PU-sDp" secondAttribute="leading" constant="20" id="QOJ-EW-G0V"/>
+                                            <constraint firstAttribute="trailing" secondItem="vOF-8x-VCA" secondAttribute="trailing" constant="20" id="QtZ-2W-Iu1"/>
+                                            <constraint firstItem="uxV-PM-dWW" firstAttribute="leading" secondItem="NEo-PU-sDp" secondAttribute="leading" constant="20" id="S0z-XQ-8DW"/>
+                                            <constraint firstItem="cCr-uy-don" firstAttribute="leading" secondItem="NEo-PU-sDp" secondAttribute="leading" constant="20" id="We2-2o-LIj"/>
+                                            <constraint firstItem="bRe-LZ-CK1" firstAttribute="leading" secondItem="NEo-PU-sDp" secondAttribute="leading" constant="20" id="YEb-L2-Vke"/>
+                                            <constraint firstItem="bRe-LZ-CK1" firstAttribute="top" secondItem="vOF-8x-VCA" secondAttribute="bottom" constant="20" id="afk-OM-kKk"/>
+                                            <constraint firstItem="Dx7-JA-noi" firstAttribute="top" secondItem="cCr-uy-don" secondAttribute="bottom" constant="20" id="cHE-hf-sQh"/>
+                                            <constraint firstAttribute="trailing" secondItem="uxV-PM-dWW" secondAttribute="trailing" constant="20" id="fLQ-FA-oBB"/>
+                                            <constraint firstItem="NSD-El-l1n" firstAttribute="top" secondItem="uxV-PM-dWW" secondAttribute="bottom" constant="20" id="kRh-Lz-rtE"/>
+                                            <constraint firstAttribute="trailing" secondItem="lph-3Z-R1t" secondAttribute="trailing" constant="20" id="nfR-Dz-OvG"/>
+                                            <constraint firstAttribute="trailing" secondItem="cCr-uy-don" secondAttribute="trailing" constant="20" id="oED-Pf-MQW"/>
+                                            <constraint firstItem="euY-np-oxr" firstAttribute="leading" secondItem="NEo-PU-sDp" secondAttribute="leading" constant="20" id="ohA-DO-C7i"/>
+                                            <constraint firstItem="cCr-uy-don" firstAttribute="top" secondItem="euY-np-oxr" secondAttribute="bottom" constant="30" id="q0B-tp-2n5"/>
+                                            <constraint firstAttribute="trailing" secondItem="Dx7-JA-noi" secondAttribute="trailing" constant="20" id="qeo-vj-DeP"/>
+                                            <constraint firstItem="euY-np-oxr" firstAttribute="top" secondItem="NEo-PU-sDp" secondAttribute="top" constant="15" id="s9j-3T-UPA"/>
+                                            <constraint firstAttribute="bottom" secondItem="lph-3Z-R1t" secondAttribute="bottom" id="sy6-gV-yIC"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="NEo-PU-sDp" secondAttribute="bottom" id="6gv-Ol-IA2"/>
+                                    <constraint firstAttribute="trailing" secondItem="NEo-PU-sDp" secondAttribute="trailing" id="NrQ-z7-Ncw"/>
+                                    <constraint firstItem="NEo-PU-sDp" firstAttribute="top" secondItem="J51-I3-nxo" secondAttribute="top" id="Nzm-hb-XSb"/>
+                                    <constraint firstItem="NEo-PU-sDp" firstAttribute="leading" secondItem="J51-I3-nxo" secondAttribute="leading" id="cQS-dK-NGt"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="NEo-PU-sDp" firstAttribute="width" secondItem="Sn9-pr-ccW" secondAttribute="width" id="8ZA-kg-mYr"/>
+                            <constraint firstItem="J51-I3-nxo" firstAttribute="top" secondItem="Sn9-pr-ccW" secondAttribute="top" id="IpR-m0-0ws"/>
+                            <constraint firstItem="J51-I3-nxo" firstAttribute="leading" secondItem="Sn9-pr-ccW" secondAttribute="leading" id="Sqo-Ji-gCh"/>
+                            <constraint firstItem="J51-I3-nxo" firstAttribute="bottom" secondItem="Sn9-pr-ccW" secondAttribute="bottom" constant="1" id="aAh-qs-X7S"/>
+                            <constraint firstItem="J51-I3-nxo" firstAttribute="trailing" secondItem="Sn9-pr-ccW" secondAttribute="trailing" id="z1M-5u-gRP"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Sn9-pr-ccW"/>
+                    </view>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="sZS-eT-b1A"/>
+                    <connections>
+                        <outlet property="contentLabel" destination="euY-np-oxr" id="Dmq-Pf-fg6"/>
+                        <outlet property="contentView" destination="NEo-PU-sDp" id="Hff-Ub-v5g"/>
+                        <outlet property="exampleLabel" destination="uxV-PM-dWW" id="YN9-iH-JwF"/>
+                        <outlet property="meaningLabel" destination="cCr-uy-don" id="XE5-mQ-tMA"/>
+                        <outlet property="noteLabel" destination="vOF-8x-VCA" id="l4h-B5-Rwx"/>
+                        <outlet property="scrollView" destination="J51-I3-nxo" id="bhB-Oy-8Hm"/>
+                        <outlet property="tagListView" destination="lph-3Z-R1t" id="9wh-Re-d57"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ymE-ID-ewM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1787" y="-1767"/>
+        </scene>
+        <!--Dictionary Navigation Controller-->
+        <scene sceneID="9NB-4m-JwQ">
+            <objects>
+                <navigationController title="Dictionary Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="sBO-IS-Iv0" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" image="Dictionary" selectedImage="Dictionary" id="coc-BD-UWi"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="pQW-xP-aFb">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="x7w-JV-xuM" kind="relationship" relationship="rootViewController" id="mv1-8W-QTW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nei-oK-nAG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="-1453.125"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Dictionary" width="30" height="30"/>
+    </resources>
+</document>

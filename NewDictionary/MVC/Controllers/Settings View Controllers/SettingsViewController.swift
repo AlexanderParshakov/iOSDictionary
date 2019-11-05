@@ -8,10 +8,13 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsScreen: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = Constants.Localizables.Settings.mainTitle
+        self.navigationController?.navigationBar.topItem?.title = Constants.Localizables.Settings.mainTitle
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
 }

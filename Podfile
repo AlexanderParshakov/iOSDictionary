@@ -4,4 +4,5 @@ target 'NewDictionary' do
   use_frameworks!
     pod 'lottie-ios'
     pod 'TagListView'
+    pod 'RealmSwift'
 end

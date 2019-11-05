@@ -14,22 +14,17 @@ class DictionaryScreen: UIViewController {
     
     @IBOutlet weak var wordTableView: UITableView!
     @IBOutlet weak var animationView: AnimationView!
-    @IBOutlet weak var searchBar: CustomSearchBar!
-    
-    
-    @IBAction func didEndOnExit(_ sender: Any) {
-        searchBar.resignFirstResponder()
-    }
+    @IBOutlet weak var addBarButton: UIBarButtonItem!
     
     var hasSearchStarted: Bool = false
     private let refreshControl = UIRefreshControl()
     private var timer: Timer?
     private var isSearchBarEmpty: Bool {
-        guard let text = searchBar.text else { return false }
+        guard let text = searchController.searchBar.text else { return false }
         return text.isEmpty
     }
     private var isFiltering: Bool {
-        return searchBar.isEnabled && !isSearchBarEmpty
+        return searchController.isActive && !isSearchBarEmpty
     }
     private var animationExists: Bool {
         return animationView != nil
@@ -37,42 +32,29 @@ class DictionaryScreen: UIViewController {
     
     private var wordList: Array<WordUnit>? = nil
     private var filteredList: Array<WordUnit>? = nil
+    let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupScreen()
         setupTable()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonClick))
         setupColors()
         setupRefreshControl()
         setupSearchController()
         loadWords()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        if self.traitCollection.userInterfaceStyle == .dark {
-//            searchBar.textColor = UIColor(named: Constants.ColorNames.fontColor)
-//        } else {
-//            searchBar.textColor = UIColor(named: Constants.ColorNames.fontColor)
-//        }
-        if animationExists {
-            AnimationManager.startAnimation(animationView: animationView)
-        }
-    }
     func setupScreen() {
-        self.title = Constants.Literals.Dictionary.mainTitle
+        self.title = Constants.Localizables.Dictionary.mainTitle
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     func setupTable() {
         wordTableView.delegate = self
         wordTableView.dataSource = self
-        wordTableView.isHidden = true
-        searchBar.delegate = self
-        let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
     }
     func setupColors() {
-        searchBar.borderColor = Constants.Colors.deepRed
+        self.navigationController!.navigationBar.tintColor = Constants.Colors.deepRed
     }
     func setupRefreshControl() {
         AnimationManager.setTableRefreshControl(refreshControl: refreshControl, forTable: wordTableView)
@@ -80,12 +62,19 @@ class DictionaryScreen: UIViewController {
     }
     @objc func refreshList() {
         AnimationManager.startTableRefreshAnimation(refreshControl: refreshControl)
-        loadWords()
+        loadWords(refreshing: true)
     }
     func setupSearchController() {
-        searchBar.placeholder = Constants.Literals.Dictionary.searchBarText
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false 
+        searchController.searchBar.placeholder = Constants.Localizables.Dictionary.searchBarText
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
     }
-    
+    @objc func addButtonClick(){
+        self.performSegue(withIdentifier: "AddWord", sender: nil)
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showWord" {
             if let indexPath = wordTableView.indexPathForSelectedRow {
@@ -122,7 +111,7 @@ extension DictionaryScreen: UITableViewDataSource, UITableViewDelegate {
         else {
             currentWord = (wordList?[indexPath.row])!
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Literals.Dictionary.dictionaryCell) as! DictionaryViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Localizables.Dictionary.dictionaryCell) as! DictionaryViewCell
         cell.setWord(word: currentWord)
         
         return cell
@@ -130,63 +119,46 @@ extension DictionaryScreen: UITableViewDataSource, UITableViewDelegate {
 }
 
 // search bar
-extension DictionaryScreen: UITextFieldDelegate {
-    
-    @objc func endEditing() {
-        searchBar.resignFirstResponder()
-    }
-    @IBAction func didSearchEditingChanged(_ sender: Any) {
+extension DictionaryScreen: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.filterByContent(content: self.searchBar.text!)
+            self.filterByContent(content: self.searchController.searchBar.text!)
         })
-    }
-     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        searchBar.resignFirstResponder()
-        searchBar.text!.removeAll()
-        wordTableView.reloadData()
-        return false
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if searchBar.text?.count == 0 {
-            return true
-        }
-        self.filterByContent(content: self.searchBar.text!)
-        return true
-    }
-    
-    func updateSearchResults(for searchBar: CustomSearchBar) {
-        filterByContent(content: searchBar.text!)
     }
     func filterByContent(content: String) {
         filteredList = wordList?.filter({ (wu: WordUnit) -> Bool in
             return wu.content.lowercased().contains(content.lowercased())
+                || wu.isTagRelevant(content: content)
                 || wu.meaning.lowercased().contains(content.lowercased())
                 || wu.example.lowercased().contains(content.lowercased())
                 || wu.note.lowercased().contains(content.lowercased())
-                || wu.isTagRelevant(content: content)
         })
         wordTableView.reloadData()
     }
 }
 
-// data manipulation
+// MARK: - Data Loading
 extension DictionaryScreen {
-    func loadWords() {
-        NetworkManager.WordUnits.getWords { [weak self] (result) in
-            switch result {
-                
-                case .success(let words):
-                    self?.wordList = words
-                    self?.wordTableView.reloadData()
-                    self?.wordTableView.isHidden = false
-                    if let animation = self?.animationView {
-                        animation.removeFromSuperview()
-                    }
-                    self?.refreshControl.endRefreshing()
-                case .failure(let error):
-                    print("Error: ", error)
+    
+    func loadWords(refreshing: Bool = false) {
+        wordList = RealmManager.WordUnits.retrieve()
+        if wordList?.count ?? 0 > 0 && !refreshing {
+            AnimationManager.uncurtainScreen(animationView: animationView, tableView: wordTableView)
+        }
+        else if wordList?.count ?? 0 == 0 || refreshing {
+            NetworkManager.WordUnits.getWords { [weak self] (result) in
+                switch result {
+                    case .success(let words):
+                        self?.wordList = words
+                        self?.wordTableView.reloadData()
+                        if self!.animationExists {
+                            AnimationManager.uncurtainScreen(animationView: self!.animationView, tableView: self?.wordTableView)
+                        }
+                        self?.refreshControl.endRefreshing()
+                    case .failure(let error):
+                        print("Error: ", error)
+                }
             }
         }
     }

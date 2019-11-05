@@ -20,23 +20,33 @@ class WordScreen: UIViewController {
     @IBOutlet weak var noteLabel: UILabel!
     @IBOutlet weak var tagListView: TagListView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController!.navigationBar.tintColor = Constants.Colors.deepRed;
         setLabels()
         setTags()
         scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height + 100)
+        view.sizeToFit()
+        scrollView.sizeToFit()
     }
-    
+    override func viewDidLayoutSubviews() {
+        scrollView.layoutIfNeeded()
+        scrollView.isScrollEnabled = true
+        scrollView.contentSize = CGSize(width: self.view.frame.width, height: contentView.frame.size.height + 20)
+    }
     func setLabels() {
-        tagListView.textFont = UIFont.systemFont(ofSize: 18)
         contentLabel.text = wordUnit.content
         meaningLabel.text = wordUnit.meaning
         exampleLabel.text = wordUnit.example
         noteLabel.text = wordUnit.note
     }
     func setTags() {
+        tagListView.textFont = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        tagListView.textFont = UIFont(name: Constants.Fonts.boldPalatino, size: 19)!
+        
         for tag in wordUnit.tags {
             tagListView.addTag(tag.name)
         }

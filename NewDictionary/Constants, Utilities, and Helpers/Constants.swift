@@ -39,6 +39,7 @@ struct Constants {
         static let dictBackground = hexStringToUIColor(hex: "#4a76a8")
         static let lightBlue = hexStringToUIColor(hex: "#00baff")
         static let deepRed = hexStringToUIColor(hex: "#BB1517")
+        static let mildRed = hexStringToUIColor(hex: "#FE4036")
     }
     
     struct Fonts {
@@ -52,17 +53,23 @@ struct Constants {
         static let basicRefreshControl = "trailRefreshControl"
     }
     
-    struct Literals {
+    struct Localizables {
         
         struct Dictionary {
+            static let mainTitle = Localizer.Localize("dictionary_main_title")
             static let dictionaryCell = "DictionaryCell"
-            static let searchBarText = "Search words"
-            static let mainTitle = "Your dictionary"
+            static let searchBarText = Localizer.Localize("dictionary_search_words")
         }
         
-        struct Source {
+        struct Sources {
+            static let mainTitle = Localizer.Localize("sources_main_title")
             static let sourceCell = "SourceCell"
             static let sourceDictionaryCell = "SourceDictionaryCell"
+        }
+        
+        struct Settings {
+            static let mainTitle = Localizer.Localize("settings_main_title")
+            static let myProfile = Localizer.Localize("settings_my_profile")
         }
     }
     

@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  NewDictionary
+
+  Created by Alexander Parshakov on 11/1/19.
+  Copyright © 2019 Alexander Parshakov. All rights reserved.
+*/
+
+"dictionary_main_title" = "Мой словарь";
+"dictionary_search_words" = "Поиск слов";
+
+
+"sources_main_title" = "Источники";
+
+
+"settings_main_title" = "Настройки";
+"settings_my_profile" = "Мой профиль";

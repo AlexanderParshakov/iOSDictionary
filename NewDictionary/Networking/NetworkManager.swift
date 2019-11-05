@@ -9,10 +9,11 @@
 import Foundation
 import CoreData
 import UIKit
+import RealmSwift
 
-final class NetworkManager {
+struct NetworkManager {
     
-    final class WordUnits {
+    struct WordUnits {
         
         static func getWords(sourceId:Int = -1, completion: @escaping (Result<Array<WordUnit>, Error>) -> Void) {
             URLSession.shared.dataTask(with: URLs.wordUnitMethods.getAll(forUserLogin: "AlexanderParshakov", forLanguage: 1, forSource: sourceId)) {
@@ -26,6 +27,9 @@ final class NetworkManager {
                     do {
                         let words = try JSONDecoder().decode(Array<WordUnit>.self, from: data)
                         completion(.success(words))
+                        if sourceId == -1 {
+                            RealmManager.WordUnits.persist(fromArray: words)
+                        }
                     } catch let jsonError {
                         print("Failed to decode", jsonError)
                         completion(.failure(jsonError))
@@ -54,7 +58,7 @@ final class NetworkManager {
             }.resume()
         }
     }
-    final class Sources {
+    struct Sources {
         
         static func getAll(completion: @escaping (Result<Array<Source>, Error>) -> Void) {
             URLSession.shared.dataTask(with: URLs.sourceMethods.getAll(forUserLogin: "AlexanderParshakov", withPassword: "123")) {
@@ -68,6 +72,7 @@ final class NetworkManager {
                     do {
                         let sources = try JSONDecoder().decode(Array<Source>.self, from: data)
                         completion(.success(sources))
+                        RealmManager.Sources.persist(fromArray: sources)
                     } catch let jsonError {
                         print("Failed to decode", jsonError)
                         completion(.failure(jsonError))

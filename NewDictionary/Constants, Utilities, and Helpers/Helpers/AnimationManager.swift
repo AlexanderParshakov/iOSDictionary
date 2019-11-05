@@ -12,16 +12,25 @@ import Lottie
 
 final class AnimationManager {
     
-    static func startAnimation(animationView: AnimationView) {
+    static func curtainScreen(animationView: AnimationView, tableView: UITableView?) {
+        if let view = tableView {
+            view.isHidden = true
+        }
         animationView.animation = Animation.named(Constants.ResourceNames.basicLoader)
         animationView.loopMode = .loop
         animationView.play()
+    }
+    static func uncurtainScreen(animationView: AnimationView, tableView: UITableView?) {
+        if let view = tableView {
+            view.isHidden = false
+        }
+        animationView.removeFromSuperview()
     }
     static func startTableRefreshAnimation(refreshControl: UIRefreshControl) {
         let refreshView = refreshControl.viewWithTag(1)
         for view in refreshView!.subviews {
             if let animationView = view as? AnimationView {
-                self.startAnimation(animationView: animationView)
+                self.curtainScreen(animationView: animationView, tableView: nil)
             }
         }
     }
