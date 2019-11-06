@@ -1,7 +1,13 @@
 # iOS Personalized Dictionary
 
+## Implementation
+* API (C#, .NET, Azure)
+* URLSession + GCD
+* Local storage for access without Internet connection
+* Dark Mode support
+
 ## Third-party libraries in use:
-* RealmSwift (local database)
+* RealmSwift (local storage)
 * Lottie-iOS (animation while loading)
 * TagListView (showing word tags)
 
