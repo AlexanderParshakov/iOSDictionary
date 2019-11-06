@@ -4,7 +4,7 @@
 * API (C#, .NET, Azure)
 * URLSession + GCD
 * Local storage for access without Internet connection
-* Dark Mode support
+* Cocoa Pods for managing third-party libraries
 
 ## Third-party libraries in use:
 * RealmSwift (local storage)
