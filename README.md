@@ -10,10 +10,10 @@
 ### Dictionary views:
 Dictionary (main)             |  Word Information
 :-------------------------:|:-------------------------:
-<img src="Images/Dictionary Main.gif" width= 300>   |  <img src="Images/Word Info.gif" width= 300> 
+<img src="Images/Dictionary Main.png" width= 300>   |  <img src="Images/Word Info.png" width= 300> 
 
 ### Source views:
 Sources (main)             |  Source Information
 :-------------------------:|:-------------------------:
-<img src="Images/Sources Main.gif" width= 300>   |  <img src="Images/Source Info.gif" width= 300> 
+<img src="Images/Sources Main.png" width= 300>   |  <img src="Images/Source Info.png" width= 300> 
 
