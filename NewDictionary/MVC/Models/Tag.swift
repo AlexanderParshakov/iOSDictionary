@@ -13,8 +13,15 @@ struct Tag: Decodable {
     var id: Int
     var name: String
     
-    init(id:Int, name: String) {
-        self.id = id
-        self.name = name
+    init() {
+        self.id = 0
+        self.name = ""
+    }
+    
+    init (realmTag: RealmTag) {
+        self.init()
+        
+        self.id = Int(realmTag.id)!
+        self.name = realmTag.name
     }
 }

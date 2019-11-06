@@ -39,6 +39,10 @@ struct WordUnit: Decodable {
         self.meaning = realmWordUnit.meaning
         self.example = realmWordUnit.example
         self.note = realmWordUnit.note
+        
+        realmWordUnit.tags.forEach { (realmTag) in
+            self.tags.append(Tag(realmTag: realmTag))
+        }
     }
 }
 

@@ -8,6 +8,10 @@
 
 "dictionary_main_title" = "My Dictionary";
 "dictionary_search_words" = "Search words";
+"dictionary_input_content" = "Input content...";
+"dictionary_input_meaning" = "Input meaning or translation...";
+"dictionary_input_example" = "Add an example(s)...";
+"dictionary_input_note" = "Add a note...";
 
 
 "sources_main_title" = "Sources";

@@ -98,8 +98,9 @@
                             <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1x9-xo-A5r">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="fBX-8P-jtm"/>
-                                    <constraint firstAttribute="width" constant="414" id="yg2-Ld-3fM"/>
+                                    <constraint firstAttribute="width" secondItem="1x9-xo-A5r" secondAttribute="height" multiplier="207:125" id="WKE-bf-L46"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="fBX-8P-jtm"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="414" id="yg2-Ld-3fM"/>
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TK8-me-5cm">

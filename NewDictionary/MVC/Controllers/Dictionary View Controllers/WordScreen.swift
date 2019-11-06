@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 import TagListView
 
 class WordScreen: UIViewController {
@@ -29,8 +28,6 @@ class WordScreen: UIViewController {
         setLabels()
         setTags()
         scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height + 100)
-        view.sizeToFit()
-        scrollView.sizeToFit()
     }
     override func viewDidLayoutSubviews() {
         scrollView.layoutIfNeeded()

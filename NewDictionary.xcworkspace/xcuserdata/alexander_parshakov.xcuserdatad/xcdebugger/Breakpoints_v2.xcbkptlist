@@ -20,5 +20,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E587BBFC-133C-4201-84BF-6AFFBF0C9FA2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NewDictionary/MVC/Models/RealmWordUnit.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "init(wordUnit:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E587BBFC-133C-4201-84BF-6AFFBF0C9FA2 - 91343d313ac23412"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewDictionary.RealmWordUnit.__allocating_init(wordUnit: NewDictionary.WordUnit) -&gt; NewDictionary.RealmWordUnit"
+                  moduleName = "NewDictionary"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexander_parshakov/Desktop/Xcode%20Projects/NewDictionary/NewDictionary/MVC/Models/RealmWordUnit.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "1142">
+               </Location>
+               <Location
+                  uuid = "E587BBFC-133C-4201-84BF-6AFFBF0C9FA2 - 7a84008de215f7cf"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (NewDictionary.Tag) -&gt; () in NewDictionary.RealmWordUnit.init(wordUnit: NewDictionary.WordUnit) -&gt; NewDictionary.RealmWordUnit"
+                  moduleName = "NewDictionary"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexander_parshakov/Desktop/Xcode%20Projects/NewDictionary/NewDictionary/MVC/Models/RealmWordUnit.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "49">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

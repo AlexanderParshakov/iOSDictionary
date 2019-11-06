@@ -40,6 +40,7 @@ struct Constants {
         static let lightBlue = hexStringToUIColor(hex: "#00baff")
         static let deepRed = hexStringToUIColor(hex: "#BB1517")
         static let mildRed = hexStringToUIColor(hex: "#FE4036")
+        static let darkGrey = hexStringToUIColor(hex: "#2d3436")
     }
     
     struct Fonts {
@@ -58,7 +59,11 @@ struct Constants {
         struct Dictionary {
             static let mainTitle = Localizer.Localize("dictionary_main_title")
             static let dictionaryCell = "DictionaryCell"
-            static let searchBarText = Localizer.Localize("dictionary_search_words")
+            static let searchBarPlaceholder = Localizer.Localize("dictionary_search_words")
+            static let contentPlaceholder = Localizer.Localize("dictionary_input_content")
+            static let meaningPlaceholder = Localizer.Localize("dictionary_input_meaning")
+            static let examplePlaceholder = Localizer.Localize("dictionary_input_example")
+            static let notePlaceholder = Localizer.Localize("dictionary_input_note")
         }
         
         struct Sources {

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 import Lottie
 
 class DictionaryScreen: UIViewController {
@@ -37,6 +36,7 @@ class DictionaryScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        RealmManager.printPath()
         setupScreen()
         setupTable()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonClick))
@@ -67,7 +67,7 @@ class DictionaryScreen: UIViewController {
     func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false 
-        searchController.searchBar.placeholder = Constants.Localizables.Dictionary.searchBarText
+        searchController.searchBar.placeholder = Constants.Localizables.Dictionary.searchBarPlaceholder
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true

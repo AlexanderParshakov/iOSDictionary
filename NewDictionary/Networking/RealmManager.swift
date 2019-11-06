@@ -11,6 +11,8 @@ import RealmSwift
 
 struct RealmManager {
     
+    private init() {}
+    
     static func printPath() {
         print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
@@ -90,6 +92,7 @@ extension RealmManager.WordUnits {
                 let realm = try! Realm()
                 try! realm.write {
                     realm.delete(realm.objects(RealmWordUnit.self))
+                    realm.delete(realm.objects(RealmTag.self))
                     realm.add(realmWordUnits)
                 }
             }

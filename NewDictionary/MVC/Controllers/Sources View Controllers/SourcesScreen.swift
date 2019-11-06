@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import CoreData
 import Lottie
+
 class SourcesScreen: UIViewController {
     
     @IBOutlet weak var sourcesTableView: UITableView!
