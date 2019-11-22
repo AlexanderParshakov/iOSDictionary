@@ -15,8 +15,8 @@
 
 ### Dictionary views:
 Dictionary (main)             |  Term Information |  Adding term
-:-------------------------:|:-------------------------:
-<img src="Images/Dictionary Main.png" width= 300>   |  <img src="Images/Word Info.png" width= 300>  |  <img src="Images/Adding term.gif" width= 300> 
+:-------------------------:|:-------------------------:|:-------------------------:
+<img src="Images/Dictionary Main.png" width= 300>   |  <img src="Images/Term Info.png" width= 300>  |  <img src="Images/Adding term.gif" width= 300> 
 
 ### Source views:
 Sources (main)             |  Source Info
