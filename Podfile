@@ -5,4 +5,6 @@ target 'NewDictionary' do
     pod 'lottie-ios'
     pod 'TagListView'
     pod 'RealmSwift'
+    pod 'IQKeyboardManager'
+    pod 'Alamofire'
 end

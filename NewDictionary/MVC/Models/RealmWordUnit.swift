@@ -17,7 +17,7 @@ class RealmWordUnit: Object {
     @objc dynamic var example:String = ""
     @objc dynamic var note:String = ""
 //    @objc dynamic var dateCreated: Date = Date()
-    var tags: List<RealmTag> = List<RealmTag>()
+    var tags: List<RealmWordTag> = List<RealmWordTag>()
     
     
     convenience init(wordUnit: WordUnit) {
@@ -29,7 +29,7 @@ class RealmWordUnit: Object {
         self.note = wordUnit.note
         
         wordUnit.tags.forEach { (tag) in
-            self.tags.append(RealmTag(tag: tag))
+            self.tags.append(RealmWordTag(tag: tag))
         }
 //        guard let date = wordUnit.dateCreated else { return }
 //        self.dateCreated = date

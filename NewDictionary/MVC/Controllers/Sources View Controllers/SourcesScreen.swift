@@ -20,7 +20,7 @@ class SourcesScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         RealmManager.printPath()
-        AnimationManager.curtainScreen(animationView: animationView, tableView: sourcesTableView)
+        LottieManager.curtainScreen(animationView: animationView, tableView: sourcesTableView)
         setupScreen()
         loadSources()
     }
@@ -28,6 +28,11 @@ class SourcesScreen: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationItem.title = Constants.Localizables.Sources.mainTitle
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        sourcesTableView.reloadData()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
@@ -60,7 +65,7 @@ extension SourcesScreen {
     func loadSources() {
         sourceList = RealmManager.Sources.retrieve()
         if (sourceList?.count ?? 0 > 0) {
-            AnimationManager.uncurtainScreen(animationView: animationView, tableView: sourcesTableView)
+            LottieManager.uncurtainScreen(animationView: animationView, tableView: sourcesTableView)
         }
             
         else {
@@ -70,7 +75,7 @@ extension SourcesScreen {
                         self?.sourceList = sources
                         self?.sourcesTableView.reloadData()
                         guard let animation = self?.animationView else { return }
-                        AnimationManager.uncurtainScreen(animationView: animation, tableView: self?.sourcesTableView)
+                        LottieManager.uncurtainScreen(animationView: animation, tableView: self?.sourcesTableView)
                     case .failure(let error):
                         print("Error: ", error)
                 }

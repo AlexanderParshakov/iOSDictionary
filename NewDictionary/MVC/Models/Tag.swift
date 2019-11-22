@@ -8,20 +8,34 @@
 
 import Foundation
 
-struct Tag: Decodable {
+final class Tag {
     
     var id: Int
     var name: String
+    var isSelected: Bool = false
     
     init() {
         self.id = 0
         self.name = ""
     }
     
-    init (realmTag: RealmTag) {
+    convenience init (realmWordTag: RealmWordTag) {
+        self.init()
+        
+        self.id = Int(realmWordTag.id)!
+        self.name = realmWordTag.name
+    }
+    convenience init (realmTag: RealmTag) {
         self.init()
         
         self.id = Int(realmTag.id)!
         self.name = realmTag.name
+    }
+}
+
+extension Tag: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case name = "name"
     }
 }

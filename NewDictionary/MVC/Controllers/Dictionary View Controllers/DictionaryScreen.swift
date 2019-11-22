@@ -28,6 +28,7 @@ class DictionaryScreen: UIViewController {
     private var animationExists: Bool {
         return animationView != nil
     }
+    private var allRowsAnimated = false
     
     private var wordList: Array<WordUnit>? = nil
     private var filteredList: Array<WordUnit>? = nil
@@ -36,6 +37,7 @@ class DictionaryScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        LottieManager.curtainScreen(animationView: animationView, tableView: wordTableView)
         RealmManager.printPath()
         setupScreen()
         setupTable()
@@ -44,6 +46,7 @@ class DictionaryScreen: UIViewController {
         setupRefreshControl()
         setupSearchController()
         loadWords()
+//        view.setGradientBackground(colorOne: Constants.Colors.midGrey, colorTwo: Constants.Colors.darkGrey)
     }
     func setupScreen() {
         self.title = Constants.Localizables.Dictionary.mainTitle
@@ -52,22 +55,23 @@ class DictionaryScreen: UIViewController {
     func setupTable() {
         wordTableView.delegate = self
         wordTableView.dataSource = self
+        wordTableView.backgroundColor = .clear
     }
     func setupColors() {
-        self.navigationController!.navigationBar.tintColor = Constants.Colors.deepRed
+        self.navigationController!.navigationBar.tintColor = .systemRed
     }
     func setupRefreshControl() {
-        AnimationManager.setTableRefreshControl(refreshControl: refreshControl, forTable: wordTableView)
+        LottieManager.setTableRefreshControl(refreshControl: refreshControl, forTable: wordTableView)
         self.refreshControl.addTarget(self, action: #selector(refreshList), for: .valueChanged)
     }
     @objc func refreshList() {
-        AnimationManager.startTableRefreshAnimation(refreshControl: refreshControl)
+        LottieManager.startTableRefreshAnimation(refreshControl: refreshControl)
         loadWords(refreshing: true)
     }
     func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false 
-        searchController.searchBar.placeholder = Constants.Localizables.Dictionary.searchBarPlaceholder
+        searchController.searchBar.placeholder = Constants.Localizables.Dictionary.wordsSearchBarPlaceholder
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
@@ -77,6 +81,8 @@ class DictionaryScreen: UIViewController {
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showWord" {
+//            navigationController?.isHeroEnabled = true
+//            Hero.shared.defaultAnimation = .selectBy(presenting: .zoom, dismissing: .zoomOut)
             if let indexPath = wordTableView.indexPathForSelectedRow {
                 var word = WordUnit()
                 if isFiltering {
@@ -97,6 +103,16 @@ class DictionaryScreen: UIViewController {
 // table
 extension DictionaryScreen: UITableViewDataSource, UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if !allRowsAnimated {
+            let animation = AnimationFactory.makeMoveUpWithFade(rowHeight: cell.frame.height, duration: 0.45, delayFactor: 0.25)
+            let animator = Animator(animation: animation)
+            animator.animate(cell: cell, at: indexPath, in: tableView)
+            if tableView.isLastVisibleCell(at: indexPath) {
+                allRowsAnimated = true
+            }
+        }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
             return filteredList?.count ?? 0
@@ -115,6 +131,31 @@ extension DictionaryScreen: UITableViewDataSource, UITableViewDelegate {
         cell.setWord(word: currentWord)
         
         return cell
+    }
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            
+            let editImage = UIImage(named: "Edit")?.withRenderingMode(.alwaysTemplate)
+            let editAction = UIAction(title: "Edit", image: editImage) { _ in
+                self.goToEdit()
+            }
+            
+            let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: [.destructive]) { _ in
+                self.delete()
+            }
+         
+            let menu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: [editAction, deleteAction])
+            
+            return menu
+        }
+        
+        return config
+    }
+    func goToEdit() {
+        
+    }
+    func delete() {
+        
     }
 }
 
@@ -144,7 +185,7 @@ extension DictionaryScreen {
     func loadWords(refreshing: Bool = false) {
         wordList = RealmManager.WordUnits.retrieve()
         if wordList?.count ?? 0 > 0 && !refreshing {
-            AnimationManager.uncurtainScreen(animationView: animationView, tableView: wordTableView)
+            LottieManager.uncurtainScreen(animationView: animationView, tableView: wordTableView)
         }
         else if wordList?.count ?? 0 == 0 || refreshing {
             NetworkManager.WordUnits.getWords { [weak self] (result) in
@@ -153,7 +194,7 @@ extension DictionaryScreen {
                         self?.wordList = words
                         self?.wordTableView.reloadData()
                         if self!.animationExists {
-                            AnimationManager.uncurtainScreen(animationView: self!.animationView, tableView: self?.wordTableView)
+                            LottieManager.uncurtainScreen(animationView: self!.animationView, tableView: self?.wordTableView)
                         }
                         self?.refreshControl.endRefreshing()
                     case .failure(let error):

@@ -12,7 +12,7 @@ import TagListView
 class WordScreen: UIViewController {
     
     var wordUnit = WordUnit()
-
+    
     @IBOutlet weak private var contentLabel: UILabel!
     @IBOutlet weak var meaningLabel: UILabel!
     @IBOutlet weak var exampleLabel: UILabel!
@@ -27,12 +27,19 @@ class WordScreen: UIViewController {
         self.navigationController!.navigationBar.tintColor = Constants.Colors.deepRed;
         setLabels()
         setTags()
-        scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height + 100)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeRight)
     }
     override func viewDidLayoutSubviews() {
         scrollView.layoutIfNeeded()
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.isScrollEnabled = true
         scrollView.contentSize = CGSize(width: self.view.frame.width, height: contentView.frame.size.height + 20)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     func setLabels() {
         contentLabel.text = wordUnit.content
@@ -52,13 +59,31 @@ class WordScreen: UIViewController {
         NetworkManager.WordUnits.getById(wordId: wordUnit.id) { [weak self] (result) in
             switch result {
                 
-            case .success(let wordUnit):
-                self?.contentLabel.text = wordUnit.content
-                self?.meaningLabel.text = wordUnit.meaning
-                self?.exampleLabel.text = wordUnit.example
-                self?.noteLabel.text = wordUnit.note
-            case .failure(let error):
-                print("Error: ", error)
+                case .success(let wordUnit):
+                    self?.contentLabel.text = wordUnit.content
+                    self?.meaningLabel.text = wordUnit.meaning
+                    self?.exampleLabel.text = wordUnit.example
+                    self?.noteLabel.text = wordUnit.note
+                case .failure(let error):
+                    print("Error: ", error)
+            }
+        }
+    }
+}
+
+// MARK: - Swipe Gestures
+extension WordScreen {
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            
+            switch swipeGesture.direction {
+                case UISwipeGestureRecognizer.Direction.right:
+                    self.navigationController?.popViewController(animated: true)
+                    let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.impactOccurred()
+                default:
+                    break
             }
         }
     }

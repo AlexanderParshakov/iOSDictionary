@@ -8,6 +8,7 @@
 
 "dictionary_main_title" = "Мой словарь";
 "dictionary_search_words" = "Поиск слов";
+"dictionary_search_tags_to_add" = "Поиск тегов для добавления";
 "dictionary_input_content" = "Введите содержание...";
 "dictionary_input_meaning" = "Введите значение или перевод...";
 "dictionary_input_example" = "Добавьте пример(ы)...";

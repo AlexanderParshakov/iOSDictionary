@@ -14,12 +14,12 @@
 ## User Interface
 
 ### Dictionary views:
-Dictionary (main)             |  Word Information
+Dictionary (main)             |  Term Information |  Adding term
 :-------------------------:|:-------------------------:
-<img src="Images/Dictionary Main.png" width= 300>   |  <img src="Images/Word Info.png" width= 300> 
+<img src="Images/Dictionary Main.png" width= 300>   |  <img src="Images/Word Info.png" width= 300>  |  <img src="Images/Adding term.gif" width= 300> 
 
 ### Source views:
-Sources (main)             |  Source Information
+Sources (main)             |  Source Info
 :-------------------------:|:-------------------------:
-<img src="Images/Sources Main.png" width= 300>   |  <img src="Images/Source Info.png" width= 300> 
+<img src="Images/Sources Main.png" width= 300>   |  <img src="Images/Source Info.gif" width= 300> 
 

@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     override init() {
         super.init()
         UIFont.overrideInitialize()
-        UITabBar.appearance().tintColor = Constants.Colors.deepRed
+        UITabBar.appearance().tintColor = .systemRed
 
     }
     

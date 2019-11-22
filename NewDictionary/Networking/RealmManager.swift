@@ -9,7 +9,9 @@
 import Foundation
 import RealmSwift
 
-struct RealmManager {
+class RealmManager {
+    
+    static let schemaVersion: UInt64 = 3
     
     private init() {}
     
@@ -17,8 +19,25 @@ struct RealmManager {
         print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
     
-    struct Sources { } // extended
-    struct WordUnits { } // extended
+    static func removeAllObjects(ofType type: Object.Type) {
+        let config = Realm.Configuration(
+            schemaVersion: schemaVersion,
+            migrationBlock: { migration, oldSchemaVersion in
+                if (oldSchemaVersion < schemaVersion) {
+                }
+            })
+        Realm.Configuration.defaultConfiguration = config
+        let realm = try! Realm()
+        try! realm.write {
+            realm.delete(realm.objects(type))
+        }
+    }
+    
+    class Sources { } // extended
+    class WordUnits { } // extended
+    class WordTags { } // extended
+    class Tags { } // extended
+    class Languages { } // extended
 }
 
 
@@ -72,27 +91,16 @@ extension RealmManager.WordUnits {
         DispatchQueue(label: "background").async {
             autoreleasepool {
                 let config = Realm.Configuration(
-                    // Set the new schema version. This must be greater than the previously used
-                    // version (if you've never set a schema version before, the version is 0).
-                    schemaVersion: 1,
-
-                    // Set the block which will be called automatically when opening a Realm with
-                    // a schema version lower than the one set above
+                    schemaVersion: RealmManager.schemaVersion,
                     migrationBlock: { migration, oldSchemaVersion in
-                        // We haven’t migrated anything yet, so oldSchemaVersion == 0
-                        if (oldSchemaVersion < 1) {
-                            // Nothing to do!
-                            // Realm will automatically detect new properties and removed properties
-                            // And will update the schema on disk automatically
+                        if (oldSchemaVersion < RealmManager.schemaVersion) {
                         }
                     })
-
-                // Tell Realm to use this new configuration object for the default Realm
                 Realm.Configuration.defaultConfiguration = config
                 let realm = try! Realm()
                 try! realm.write {
                     realm.delete(realm.objects(RealmWordUnit.self))
-                    realm.delete(realm.objects(RealmTag.self))
+                    realm.delete(realm.objects(RealmWordTag.self))
                     realm.add(realmWordUnits)
                 }
             }
@@ -100,22 +108,11 @@ extension RealmManager.WordUnits {
     }
     static func retrieve() -> [WordUnit] {
         let config = Realm.Configuration(
-            // Set the new schema version. This must be greater than the previously used
-            // version (if you've never set a schema version before, the version is 0).
-            schemaVersion: 1,
-
-            // Set the block which will be called automatically when opening a Realm with
-            // a schema version lower than the one set above
+            schemaVersion: RealmManager.schemaVersion,
             migrationBlock: { migration, oldSchemaVersion in
-                // We haven’t migrated anything yet, so oldSchemaVersion == 0
-                if (oldSchemaVersion < 1) {
-                    // Nothing to do!
-                    // Realm will automatically detect new properties and removed properties
-                    // And will update the schema on disk automatically
+                if (oldSchemaVersion < RealmManager.schemaVersion) {
                 }
             })
-
-        // Tell Realm to use this new configuration object for the default Realm
         Realm.Configuration.defaultConfiguration = config
         let realm = try! Realm()
         let realmWordUnits = realm.objects(RealmWordUnit.self)
@@ -139,3 +136,140 @@ extension RealmManager.WordUnits {
         return wordUnits
     }
 }
+
+extension RealmManager.WordTags {
+    
+    static func persist(fromArray tags: [Tag]) {
+        let realmTags = mutateTags(tags: tags)
+        DispatchQueue(label: "background").async {
+            autoreleasepool {
+                let config = Realm.Configuration(
+                    schemaVersion: RealmManager.schemaVersion,
+                    migrationBlock: { migration, oldSchemaVersion in
+                        if (oldSchemaVersion < RealmManager.schemaVersion) {
+                        }
+                    })
+                Realm.Configuration.defaultConfiguration = config
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.delete(realm.objects(RealmWordTag.self))
+                    realm.add(realmTags)
+                }
+            }
+        }
+    }
+    static func retrieve() -> [Tag] {
+        let realm = try! Realm()
+        let realmWordTags = realm.objects(RealmWordTag.self)
+        return mutateRealmWordUnits(realmWordTags: realmWordTags)
+    }
+    
+    private static func mutateTags(tags: [Tag]) -> [RealmWordTag] {
+        var realmWordTags = [RealmWordTag]()
+        tags.forEach { (tag) in
+            let realmTag = RealmWordTag(tag: tag)
+            realmWordTags.append(realmTag)
+        }
+        return realmWordTags
+    }
+    private static func mutateRealmWordUnits(realmWordTags: Results<RealmWordTag>) -> [Tag] {
+        var tags = [Tag]()
+        realmWordTags.forEach { (realmTag) in
+            let tag = Tag(realmWordTag: realmTag)
+            tags.append(tag)
+        }
+        return tags
+    }
+}
+
+extension RealmManager.Tags {
+    
+    static func persist(fromArray tags: [Tag]) {
+        let realmTags = mutateTags(tags: tags)
+        DispatchQueue(label: "background").async {
+            autoreleasepool {
+                let config = Realm.Configuration(
+                    schemaVersion: RealmManager.schemaVersion,
+                    migrationBlock: { migration, oldSchemaVersion in
+                        if (oldSchemaVersion < RealmManager.schemaVersion) {
+                        }
+                    })
+                Realm.Configuration.defaultConfiguration = config
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.delete(realm.objects(RealmTag.self))
+                    realm.add(realmTags)
+                }
+            }
+        }
+    }
+    static func retrieve() -> [Tag] {
+        let realm = try! Realm()
+        let realmTags = realm.objects(RealmTag.self)
+        return mutateRealmWordUnits(realmTags: realmTags)
+    }
+    
+    private static func mutateTags(tags: [Tag]) -> [RealmTag] {
+        var realmTags = [RealmTag]()
+        tags.forEach { (tag) in
+            let realmTag = RealmTag(tag: tag)
+            realmTags.append(realmTag)
+        }
+        return realmTags
+    }
+    private static func mutateRealmWordUnits(realmTags: Results<RealmTag>) -> [Tag] {
+        var tags = [Tag]()
+        realmTags.forEach { (realmTag) in
+            let tag = Tag(realmTag: realmTag)
+            tags.append(tag)
+        }
+        return tags
+    }
+}
+
+extension RealmManager.Languages {
+    
+    static func persist(fromArray languages: [Language]) {
+        let realmLanguages = mutateLanguages(languages: languages)
+        DispatchQueue(label: "background").async {
+            autoreleasepool {
+                let config = Realm.Configuration(
+                    schemaVersion: RealmManager.schemaVersion,
+                    migrationBlock: { migration, oldSchemaVersion in
+                        if (oldSchemaVersion < RealmManager.schemaVersion) {
+                        }
+                    })
+                Realm.Configuration.defaultConfiguration = config
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.delete(realm.objects(RealmLanguage.self))
+                    realm.add(realmLanguages)
+                }
+            }
+        }
+    }
+    static func retrieve() -> [Language] {
+        let realm = try! Realm()
+        let realmLanguages = realm.objects(RealmLanguage.self)
+        return mutateRealmLanguages(realmLanguages: realmLanguages)
+    }
+    
+    private static func mutateLanguages(languages: [Language]) -> [RealmLanguage] {
+        var realmLanguages = [RealmLanguage]()
+        languages.forEach { (lang) in
+            let realmLanguage = RealmLanguage(language: lang)
+            realmLanguages.append(realmLanguage)
+        }
+        return realmLanguages
+    }
+    private static func mutateRealmLanguages(realmLanguages: Results<RealmLanguage>) -> [Language] {
+        var languages = [Language]()
+        realmLanguages.forEach { (realmLanguage) in
+            let language = Language(realmLanguage: realmLanguage)
+            languages.append(language)
+        }
+        return languages
+    }
+}
+
+
