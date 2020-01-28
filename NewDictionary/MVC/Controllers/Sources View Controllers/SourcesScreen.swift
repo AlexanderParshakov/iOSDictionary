@@ -72,7 +72,7 @@ extension SourcesScreen {
             NetworkManager.Sources.getAll { [weak self] (result) in
                 switch result {
                     case .success(let sources):
-                        self?.sourceList = sources
+                        self?.sourceList = sources.sorted(by: { $0.name < $1.name })
                         self?.sourcesTableView.reloadData()
                         guard let animation = self?.animationView else { return }
                         LottieManager.uncurtainScreen(animationView: animation, tableView: self?.sourcesTableView)

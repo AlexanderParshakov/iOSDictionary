@@ -23,7 +23,7 @@ final class Animator {
         animation(cell, indexPath, tableView)
         
     }
-    static func animateLabelColor(firstColor: UIColor, secondColor: UIColor, label: UILabel) {
+    static func animateLabelColor(firstColor: UIColor, secondColor: UIColor, label: UILabel, additionalScale: Double = 0.05) {
         let changeColor = CATransition()
         changeColor.type = CATransitionType.fade
         changeColor.duration = 0.3
@@ -45,7 +45,7 @@ final class Animator {
         label.textColor = firstColor
         label.layer.add(changeColor, forKey: nil)
         UIView.animate(withDuration: 0.3) {
-            label.transform = CGAffineTransform(scaleX: 1.05, y: 1.05) //Scale label area
+            label.transform = CGAffineTransform(scaleX: CGFloat(1.0 + additionalScale), y: CGFloat(1.0 + additionalScale)) //Scale label area
         }
         CATransaction.commit()
     }

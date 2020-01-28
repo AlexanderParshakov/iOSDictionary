@@ -7,4 +7,7 @@ target 'NewDictionary' do
     pod 'RealmSwift'
     pod 'IQKeyboardManager'
     pod 'Alamofire'
+    pod 'SwiftyJSON'
+    pod 'JGProgressHUD'
+    pod 'Hero'
 end

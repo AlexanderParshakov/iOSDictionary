@@ -14,12 +14,12 @@ protocol SelectSourceDelegate {
 }
 
 class SelectSourceScreen: UIViewController {
-
+    
     @IBOutlet weak var sourcesTableView: UITableView!
     @IBOutlet weak var animationView: AnimationView!
     
     var sourceList: [Source] = [Source]()
-    var selectedSourceId: Int = 40
+    var selectedSource = Source()
     var delegate: SelectSourceDelegate?
     
     override func viewDidLoad() {
@@ -28,7 +28,7 @@ class SelectSourceScreen: UIViewController {
         sourcesTableView.delegate = self
         sourcesTableView.dataSource = self
         loadSources()
-        sourceList = sourceList.filter({ $0.id == selectedSourceId}) + sourceList.filter({ $0.id != selectedSourceId})
+        sourceList = sourceList.filter({ $0.id == selectedSource.id}) + sourceList.filter({ $0.id != selectedSource.id})
     }
 }
 
@@ -36,36 +36,36 @@ extension SelectSourceScreen: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sourceList.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let source = (sourceList[indexPath.row])
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Localizables.Sources.selectSourceCell) as! SelectSourceCell
         cell.setSource(source: source)
-        if cell.source.id == selectedSourceId {
+        if cell.source.id == selectedSource.id {
             cell.sourceName.textColor = .systemRed
             cell.sourceImage.layer.borderColor = UIColor.systemRed.cgColor
-            cell.sourceImage.layer.borderWidth = 2
+            cell.sourceImage.layer.borderWidth = 3
         }
         else {
             cell.sourceName.textColor = UIColor(named: "FontColor")
             cell.sourceImage.layer.borderWidth = 0
         }
         cell.selectionStyle = .none
-
+        
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let indexPath = sourcesTableView.indexPathForSelectedRow
-            let currentCell = sourcesTableView.cellForRow(at: indexPath!) as! SelectSourceCell
-            
-            selectedSourceId = currentCell.source.id
-            self.delegate?.selectSource(selectedSource: currentCell.source)
-            
-            sourcesTableView.reloadData()
-            
-    //        let userDefaults = UserDefaults.standard
-    //        userDefaults.set(currentCell.language, forKey: Constants.UserDefaultKeys.lastUsedLanguage)
-        }
+        let indexPath = sourcesTableView.indexPathForSelectedRow
+        let currentCell = sourcesTableView.cellForRow(at: indexPath!) as! SelectSourceCell
+        
+        selectedSource = currentCell.source
+        self.delegate?.selectSource(selectedSource: currentCell.source)
+        
+        sourcesTableView.reloadData()
+        
+        //        let userDefaults = UserDefaults.standard
+        //        userDefaults.set(currentCell.language, forKey: Constants.UserDefaultKeys.lastUsedLanguage)
+    }
 }
 
 

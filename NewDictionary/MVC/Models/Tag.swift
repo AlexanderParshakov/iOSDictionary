@@ -18,7 +18,13 @@ final class Tag {
         self.id = 0
         self.name = ""
     }
-    
+    convenience init(name: String, isSelected: Bool) {
+        self.init()
+        
+        self.id = 0
+        self.name = name
+        self.isSelected = isSelected
+    }
     convenience init (realmWordTag: RealmWordTag) {
         self.init()
         
@@ -33,7 +39,7 @@ final class Tag {
     }
 }
 
-extension Tag: Decodable {
+extension Tag: Decodable, Encodable {
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case name = "name"

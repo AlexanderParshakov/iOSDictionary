@@ -8,9 +8,11 @@
 
 import UIKit
 import Lottie
+import IQKeyboardManager
 
 protocol AddTagsDelegate {
     func addTags(tags: [Tag])
+    func modalDidDisappear()
 }
 
 class AddTagsScreen: UIViewController {
@@ -22,15 +24,67 @@ class AddTagsScreen: UIViewController {
     
     @IBAction func onAddButtonTouched(_ sender: Any) {
         if searchBar.isFirstResponder {
-            tagTableHeightConstraint.isActive = false
-            UIView.animate(withDuration: 0.5) {
-                self.view.layoutIfNeeded()
-                self.searchBar.resignFirstResponder()
-                self.scrollToFirstRow()
+            let alert = UIAlertController(title: "New Tag", message: "Add a new tag", preferredStyle: .alert)
+            
+            let saveAction = UIAlertAction(title: "Add", style: .default) {
+                [unowned self] action in
+                
+                guard let textField = alert.textFields?.first,
+                    let tagToAdd = textField.text else {
+                        return
+                }
+                if self.tagList.filter({ $0.name == tagToAdd}).count == 0 {
+                    let tag = Tag(name: tagToAdd, isSelected: true)
+                    
+                    NetworkManager.Tags.postTag(tag: tag)
+                    self.tagList.append(tag)
+                    
+                    self.searchBar.text?.removeAll()
+                    self.searchBar.resignFirstResponder()
+                    self.stackSelectedAbove(inTagArray: &self.tagList)
+                    self.tagsTableView.reloadData()
+                    self.searchBar.becomeFirstResponder()
+                    
+                    let index = self.tagList.map({ (tag) -> String in
+                        return tag.name
+                    }).firstIndex(of: tagToAdd)
+                    let cell = self.tagsTableView.cellForRow(at: IndexPath(row: index!, section: 0)) as! AddTagsCell
+                    
+                    self.timer?.invalidate()
+                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false, block: { (_) in
+                        Animator.animateLabelColor(firstColor: .systemRed, secondColor: UIColor(named: "FontColor")!, label: cell.nameLabel, additionalScale: 0.1)
+                    })
+                }
+                else {
+                    let okAlert = UIAlertController(title: "Tag exists", message: "There is such a tag already", preferredStyle: .alert)
+                    
+                    let okAction = UIAlertAction(title: "OK", style: .default) {
+                        [unowned self] action in
+                        self.present(alert, animated: true)
+                    }
+                    
+                    okAlert.addAction(okAction)
+                    self.present(okAlert, animated: false)
+                }
             }
-            searchBar.text?.removeAll()
-            stackSelectedAbove(inTagArray: &self.tagList)
-            tagsTableView.reloadData()
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+                [unowned self] action in
+                if self.tagList.filter({ $0.name == self.searchBar.text}).count == 0 {
+                    self.extendAddButton()
+                    self.addButton.isEnabled = true
+                }
+            }
+            
+            alert.addTextField { (textfield) in
+                textfield.text = self.searchBar.text
+            }
+            
+            
+            alert.addAction(saveAction)
+            alert.addAction(cancelAction)
+            
+            present(alert, animated: true)
         }
         else {
             self.delegate?.addTags(tags: self.tagList.filter({ $0.isSelected == true }))
@@ -66,6 +120,7 @@ class AddTagsScreen: UIViewController {
     var filteredTagList: Array<Tag> = [Tag]()
     var tagsFromMain: Array<Tag> = [Tag]()
     var originalTableHeight: CGFloat = 0
+    var timer: Timer?
     
     private var isFiltering: Bool {
         return !searchBar.text!.isEmpty
@@ -77,6 +132,8 @@ class AddTagsScreen: UIViewController {
             setupConforming()
             addObservers()
         }
+        IQKeyboardManager.shared().isEnabled = false
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
         searchBar.placeholder = Constants.Localizables.Dictionary.tagsSearchBarPlaceholder
         LottieManager.curtainScreen(animationView: animationView, tableView: tagsTableView)
         loadTags()
@@ -97,6 +154,11 @@ class AddTagsScreen: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.originalTableHeight = self.tagsTableView.frame.height
+        
+        searchBar.becomeFirstResponder()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        delegate?.modalDidDisappear()
     }
     func setupConforming() {
         tagsTableView.delegate = self
@@ -156,7 +218,7 @@ extension AddTagsScreen: UITableViewDataSource, UITableViewDelegate {
         tagsTableView.reloadRows(at: [indexPath!], with: UITableView.RowAnimation.none)
     }
     func scrollToFirstRow() {
-      let indexPath = IndexPath(row: 0, section: 0)
+        let indexPath = IndexPath(row: 0, section: 0)
         if tagsTableView.numberOfRows(inSection: 0) != 0 {
             self.tagsTableView.scrollToRow(at: indexPath, at: .top, animated: false)
         }
@@ -165,7 +227,7 @@ extension AddTagsScreen: UITableViewDataSource, UITableViewDelegate {
         let initiallySelectedIds = tagsFromMain.map({ $0.id})
         let currentlySelectedIds = tagList
             .filter({ (tag: Tag) -> Bool in
-                                    return tag.isSelected })
+                return tag.isSelected })
             .map({ $0.id })
         
         if initiallySelectedIds != currentlySelectedIds {
@@ -208,19 +270,22 @@ extension AddTagsScreen {
 
 extension AddTagsScreen: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filter(content: searchText)
-        if searchBar.text!.isEmpty {
-            
-            stackSelectedAbove(inTagArray: &self.tagList)
-        }
-        self.tagsTableView.reloadData()
-        if tagsTableView.numberOfRows(inSection: 0) == 0 && cancelButtonCenterXConstraint.isActive == true {
-            extendAddButton()
-            addButton.isEnabled = true
-        }
-        else if tagsTableView.numberOfRows(inSection: 0) != 0 {
-            shrinkAddButton()
-        }
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+            self.filter(content: searchText)
+            if self.searchBar.text!.isEmpty {
+                
+                self.stackSelectedAbove(inTagArray: &self.tagList)
+            }
+            self.tagsTableView.reloadData()
+            if self.tagList.filter({$0.name == searchBar.text}).count == 0 && searchBar.text != "" {
+                self.extendAddButton()
+                self.addButton.isEnabled = true
+            }
+            else if self.tagsTableView.numberOfRows(inSection: 0) != 0 || searchBar.text == "" {
+                self.shrinkAddButton()
+            }
+        })
     }
     func filter(content: String) {
         let startingWith = tagList.filter({ $0.name.lowercased().hasPrefix(content.lowercased()) })

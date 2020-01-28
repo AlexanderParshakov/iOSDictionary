@@ -11,7 +11,7 @@ import RealmSwift
 
 class RealmManager {
     
-    static let schemaVersion: UInt64 = 3
+    static let schemaVersion: UInt64 = 6
     
     private init() {}
     
@@ -38,6 +38,7 @@ class RealmManager {
     class WordTags { } // extended
     class Tags { } // extended
     class Languages { } // extended
+    class Types { } // extended
 }
 
 
@@ -60,7 +61,7 @@ extension RealmManager.Sources {
     static func retrieve() -> [Source] {
         let realm = try! Realm()
         let realmSources = realm.objects(RealmSource.self)
-        return mutateRealmSources(realmSources: realmSources)
+        return mutateRealmSources(realmSources: realmSources).sorted(by: { $0.name < $1.name })
     }
     
     private static func mutateSources(sources: [Source]) -> [RealmSource] {
@@ -98,10 +99,29 @@ extension RealmManager.WordUnits {
                     })
                 Realm.Configuration.defaultConfiguration = config
                 let realm = try! Realm()
+//                let termList = realm.objects(RealmTermList.self).first!
                 try! realm.write {
                     realm.delete(realm.objects(RealmWordUnit.self))
                     realm.delete(realm.objects(RealmWordTag.self))
                     realm.add(realmWordUnits)
+                }
+            }
+        }
+    }
+    static func persistTerm(term: WordUnit) {
+        let realmTerm = RealmWordUnit(wordUnit: term)
+        DispatchQueue(label: "background").async {
+            autoreleasepool {
+                let config = Realm.Configuration(
+                    schemaVersion: RealmManager.schemaVersion,
+                    migrationBlock: { migration, oldSchemaVersion in
+                        if (oldSchemaVersion < RealmManager.schemaVersion) {
+                        }
+                    })
+                Realm.Configuration.defaultConfiguration = config
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.add(realmTerm)
                 }
             }
         }
@@ -203,6 +223,24 @@ extension RealmManager.Tags {
             }
         }
     }
+    static func persistTag(tag: Tag) {
+        let realmTag = RealmTag(tag: tag)
+        DispatchQueue(label: "background").async {
+            autoreleasepool {
+                let config = Realm.Configuration(
+                    schemaVersion: RealmManager.schemaVersion,
+                    migrationBlock: { migration, oldSchemaVersion in
+                        if (oldSchemaVersion < RealmManager.schemaVersion) {
+                        }
+                    })
+                Realm.Configuration.defaultConfiguration = config
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.add(realmTag)
+                }
+            }
+        }
+    }
     static func retrieve() -> [Tag] {
         let realm = try! Realm()
         let realmTags = realm.objects(RealmTag.self)
@@ -272,4 +310,47 @@ extension RealmManager.Languages {
     }
 }
 
+extension RealmManager.Types {
+    static func persist(fromArray types: [TermType]) {
+        let realmTypes = mutateTypes(types: types)
+        DispatchQueue(label: "background").async {
+            autoreleasepool {
+                let config = Realm.Configuration(
+                    schemaVersion: RealmManager.schemaVersion,
+                    migrationBlock: { migration, oldSchemaVersion in
+                        if (oldSchemaVersion < RealmManager.schemaVersion) {
+                        }
+                    })
+                Realm.Configuration.defaultConfiguration = config
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.delete(realm.objects(RealmType.self))
+                    realm.add(realmTypes)
+                }
+            }
+        }
+    }
+    static func retrieve() -> [TermType] {
+        let realm = try! Realm()
+        let realmTypes = realm.objects(RealmType.self)
+        return mutateRealmTypes(realmTypes: realmTypes)
+    }
+    
+    private static func mutateTypes(types: [TermType]) -> [RealmType] {
+        var realmTypes = [RealmType]()
+        types.forEach { (type) in
+            let realmType = RealmType(type: type)
+            realmTypes.append(realmType)
+        }
+        return realmTypes
+    }
+    private static func mutateRealmTypes(realmTypes: Results<RealmType>) -> [TermType] {
+        var types = [TermType]()
+        realmTypes.forEach { (realmType) in
+            let type = TermType(realmType: realmType)
+            types.append(type)
+        }
+        return types
+    }
+}
 

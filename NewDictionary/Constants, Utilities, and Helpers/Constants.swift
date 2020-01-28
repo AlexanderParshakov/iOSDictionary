@@ -12,11 +12,11 @@ import UIKit
 struct Constants {
     
     struct UserDefaultKeys {
-        static let lastUsedLanguage = "LastUsedLanguage"
+        static let lastSelectedSource = "LastSelectedSource"
+        static let lastSelectedLanguage = "LastSelectedLanguage"
     }
     
     struct Colors {
-        
         private static func hexStringToUIColor (hex: String) -> UIColor {
             var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
             
@@ -51,12 +51,28 @@ struct Constants {
         struct DarkModeSupport {
             static let inputFontColor = UIColor(named: "InputFontColor")
         }
+        
+        
+        struct GradientSets {
+            static let burningOrange = [hexStringToUIColor(hex: "#FF416C").cgColor, hexStringToUIColor(hex: "#FF4B2B").cgColor]
+            static let celestial = [hexStringToUIColor(hex: "#C33764").cgColor, hexStringToUIColor(hex: "#1D2671").cgColor]
+            static let deepSpace = [hexStringToUIColor(hex: "#000000").cgColor, hexStringToUIColor(hex: "#434343").cgColor]
+            static let relaxingRed = [hexStringToUIColor(hex: "DEE4EA").cgColor, hexStringToUIColor(hex: "#F9FCFF").cgColor]
+        }
     }
     
     struct Fonts {
         static let boldPalatino = "Palatino-Bold"
         static let italicPalatino = "Palatino-Italic"
         static let regularPalatino = "Palatino-Roman"
+    }
+
+    struct Identifiers {
+        static let tabBarScreen = "tabBarScreen"
+        
+        struct Hero {
+            static let addTermButton = "addTermButton"
+        }
     }
     
     struct ResourceNames {
@@ -93,10 +109,15 @@ struct Constants {
         struct Languages {
             static let languageCell = "LanguageCell"
         }
-        struct Tags {
+        struct Types {
+            static let typeViewCell = "TypeViewCell"
         }
     }
     
+    struct Tags {
+        static let AddTermButtonTag = 0
+        static let TermReadyButtonTag = 1
+    }
     
 }
 

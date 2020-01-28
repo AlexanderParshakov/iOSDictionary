@@ -21,4 +21,7 @@ extension String {
             self.removeLast()
         }
     }
+    mutating func firstLetterToLowerCase() {
+        self = prefix(1).lowercased() + dropFirst()
+    }
 }

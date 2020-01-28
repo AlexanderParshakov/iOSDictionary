@@ -37,27 +37,13 @@ struct URLs {
             ]
             return urlComponents.url!
         }
-//        static func buildParametersForTermPost(term: WordUnit, langId: Int, sourceId: Int, tags: [Tag]) -> [String:String]
-//        {
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "YYYY-MM-dd HH:mm:ss:mm"
-//            var tagsDictionary = [String:String]()
-//            tags.forEach { (tag) in
-//                tagsDictionary["id"] = String(tag.id)
-//            }
-//            
-//            return [
-//                "Id" : String(term.id),
-//                "ContentOfUnit" : term.meaning,
-//                "Example" : term.example,
-//                "Note" : term.note,
-//                "Datetime" : formatter.string(from: Date()),
-//                "Tags" : tagsDictionary,
-//                
-//                
-//            ]
-//            
-//        }
+        static func buildBodyForTermPost(term: WordUnit) -> Data
+        {
+            let jsonData = try! JSONEncoder().encode(term)
+            print (jsonData)
+            
+            return jsonData
+        }
     }
     struct SourceMethods {
         private init() {}
@@ -96,6 +82,13 @@ struct URLs {
             ]
             let url = urlComponents.url!
             return url
+        }
+        static func buildBodyForTagPost(tag: Tag) -> Data
+        {
+            let jsonData = try! JSONEncoder().encode(tag)
+            print (jsonData)
+            
+            return jsonData
         }
     }
     struct LanguageMethods {

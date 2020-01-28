@@ -27,6 +27,7 @@ class SelectSourceCell: UITableViewCell {
         func setSource(source: Source) {
             self.source = source
             sourceName.text = source.name
-            sourceImage.image = UIImage(data: source.imageData)
+            guard let imageData = source.imageData else { return }
+            sourceImage.image = UIImage(data: imageData)
         }
 }

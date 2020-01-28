@@ -8,6 +8,7 @@
 
 import UIKit
 import Lottie
+import Hero
 
 class DictionaryScreen: UIViewController {
     
@@ -37,28 +38,40 @@ class DictionaryScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hero.isEnabled = true
+        
         LottieManager.curtainScreen(animationView: animationView, tableView: wordTableView)
-        RealmManager.printPath()
-        setupScreen()
+        
+        setupNavigation()
         setupTable()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonClick))
-        setupColors()
-        setupRefreshControl()
         setupSearchController()
+        setupRefreshControl()
+        
         loadWords()
-//        view.setGradientBackground(colorOne: Constants.Colors.midGrey, colorTwo: Constants.Colors.darkGrey)
+        
+        
+        setInitialValues()
     }
-    func setupScreen() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NavigationManager.setupAddButton(viewController: self)
+        self.navigationController?.view.subviews.forEach({ (view) in
+            if view is UIButton && view.tag == Constants.Tags.AddTermButtonTag {
+                (view as! UIButton).addTarget(self, action: #selector(addButtonClick), for: .touchUpInside)
+            }
+        })
+    }
+    func setupNavigation() {
         self.title = Constants.Localizables.Dictionary.mainTitle
         self.navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonClick))
+        self.navigationController?.isHeroEnabled = true
     }
     func setupTable() {
         wordTableView.delegate = self
         wordTableView.dataSource = self
         wordTableView.backgroundColor = .clear
-    }
-    func setupColors() {
-        self.navigationController!.navigationBar.tintColor = .systemRed
     }
     func setupRefreshControl() {
         LottieManager.setTableRefreshControl(refreshControl: refreshControl, forTable: wordTableView)
@@ -75,14 +88,17 @@ class DictionaryScreen: UIViewController {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
+        
+        self.navigationController!.navigationBar.tintColor = .systemRed
     }
     @objc func addButtonClick(){
         self.performSegue(withIdentifier: "AddWord", sender: nil)
     }
+    func setInitialValues() {
+        wordList = wordList?.sorted(by: {$0.id > $1.id})
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showWord" {
-//            navigationController?.isHeroEnabled = true
-//            Hero.shared.defaultAnimation = .selectBy(presenting: .zoom, dismissing: .zoomOut)
             if let indexPath = wordTableView.indexPathForSelectedRow {
                 var word = WordUnit()
                 if isFiltering {
@@ -95,8 +111,12 @@ class DictionaryScreen: UIViewController {
                 wordVC.wordUnit = word
             }
         }
+        else if segue.identifier == "AddWord" {
+            navigationController?.isHeroEnabled = true
+            Hero.shared.defaultAnimation = .zoom
+            NetworkManager.addWordDelegate = self
+        }
     }
-    
 }
 
 
@@ -129,7 +149,9 @@ extension DictionaryScreen: UITableViewDataSource, UITableViewDelegate {
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Localizables.Dictionary.dictionaryCell) as! DictionaryViewCell
         cell.setWord(word: currentWord)
-        
+        cell.customBackgroundView.hero.id = "word" + String(currentWord.id)
+        cell.contentLabel.hero.id = "contentLabel" + String(currentWord.id)
+        cell.meaningLabel.hero.id = "meaningLabel" + String(currentWord.id)
         return cell
     }
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
@@ -202,5 +224,14 @@ extension DictionaryScreen {
                 }
             }
         }
+    }
+}
+
+
+extension DictionaryScreen: AddWordScreenDelegate {
+    func termWasAdded(term: WordUnit) {
+        wordList?.insert(term, at: 0)
+//        wordList = wordList?.sorted(by: {$0.id > $1.id})
+        wordTableView.reloadData()
     }
 }

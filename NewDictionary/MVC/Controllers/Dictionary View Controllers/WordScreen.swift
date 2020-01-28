@@ -8,6 +8,7 @@
 
 import UIKit
 import TagListView
+import Hero
 
 class WordScreen: UIViewController {
     
@@ -20,17 +21,21 @@ class WordScreen: UIViewController {
     @IBOutlet weak var tagListView: TagListView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var wrapperView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController!.navigationBar.tintColor = Constants.Colors.deepRed;
         setLabels()
         setTags()
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
         swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.view.addGestureRecognizer(swipeRight)
+        setupWrapperView()
+        wrapperView.hero.id = "word" + String(wordUnit.id)
+        contentLabel.hero.id = "contentLabel" + String(wordUnit.id)
+        meaningLabel.hero.id = "meaningLabel" + String(wordUnit.id)
     }
     override func viewDidLayoutSubviews() {
         scrollView.layoutIfNeeded()
@@ -54,6 +59,11 @@ class WordScreen: UIViewController {
         for tag in wordUnit.tags {
             tagListView.addTag(tag.name)
         }
+    }
+    func setupWrapperView() {
+//        view.backgroundColor = .clear
+        wrapperView.layer.cornerRadius = 15
+        wrapperView.setSlightShadow(shadowColor: .systemGray)
     }
     func loadWord() {
         NetworkManager.WordUnits.getById(wordId: wordUnit.id) { [weak self] (result) in
@@ -81,7 +91,7 @@ extension WordScreen {
                 case UISwipeGestureRecognizer.Direction.right:
                     self.navigationController?.popViewController(animated: true)
                     let generator = UIImpactFeedbackGenerator(style: .medium)
-                generator.impactOccurred()
+                    generator.impactOccurred()
                 default:
                     break
             }

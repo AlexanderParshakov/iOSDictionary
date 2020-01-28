@@ -9,10 +9,10 @@
 "dictionary_main_title" = "Мой словарь";
 "dictionary_search_words" = "Поиск слов";
 "dictionary_search_tags_to_add" = "Поиск тегов для добавления";
-"dictionary_input_content" = "Введите содержание...";
-"dictionary_input_meaning" = "Введите значение или перевод...";
-"dictionary_input_example" = "Добавьте пример(ы)...";
-"dictionary_input_note" = "Добавьте заметки...";
+"dictionary_input_content" = "Слово, фраза или концепция";
+"dictionary_input_meaning" = "Объяснение термина";
+"dictionary_input_example" = "Пример для запоминания";
+"dictionary_input_note" = "Интересные факты или дополнения";
 
 
 "sources_main_title" = "Источники";

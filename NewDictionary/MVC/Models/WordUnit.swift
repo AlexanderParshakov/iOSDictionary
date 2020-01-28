@@ -8,20 +8,23 @@
 
 import Foundation
 
-struct WordUnitResults: Decodable {
+struct WordUnitResults: Decodable, Encodable {
     var results: [WordUnit]
 }
 
 
-struct WordUnit: Decodable {
+struct WordUnit: Decodable, Encodable {
     
     var id:Int
     var content:String
     var meaning:String
     var example:String
     var note:String
-    var dateCreated: Date?
+    var dateCreated: String?
     var tags: [Tag]
+    var source: Source
+    var types: [TermType]
+    var lang: Language
     
     
     init() {
@@ -31,6 +34,9 @@ struct WordUnit: Decodable {
         example = ""
         note = ""
         tags = [Tag]()
+        source = Source()
+        lang = Language()
+        types = [TermType]()
     }
     init(realmWordUnit: RealmWordUnit) {
         self.init()
@@ -39,6 +45,11 @@ struct WordUnit: Decodable {
         self.meaning = realmWordUnit.meaning
         self.example = realmWordUnit.example
         self.note = realmWordUnit.note
+        
+        if let source = realmWordUnit.source
+        {
+            self.source = Source(realmWordSource: source)
+        }
         
         realmWordUnit.tags.forEach { (realmWordTag) in
             self.tags.append(Tag(realmWordTag: realmWordTag))

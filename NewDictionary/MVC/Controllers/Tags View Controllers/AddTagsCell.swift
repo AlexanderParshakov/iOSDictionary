@@ -12,7 +12,6 @@ import Lottie
 class AddTagsCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var selectedAnimationView: AnimationView!
     
     var tagVariable:Tag? = nil
     

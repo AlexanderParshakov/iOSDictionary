@@ -17,7 +17,7 @@ class SelectLanguageScreen: UIViewController {
     
     var langList: Array<Language> = Array<Language>()
     var delegate: SelectLanguageDelegate?
-    var selectedLangId: Int = 2
+    var selectedLang = Language()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +41,7 @@ extension SelectLanguageScreen: UITableViewDelegate, UITableViewDataSource {
         cell.setLanguage(lang: currentLang)
         
         
-        if cell.language.id == selectedLangId {
+        if cell.language.id == selectedLang.id {
             cell.customBackgroundView.backgroundColor = .systemRed
         }
         else {
@@ -53,7 +53,7 @@ extension SelectLanguageScreen: UITableViewDelegate, UITableViewDataSource {
         let indexPath = languagesTableView.indexPathForSelectedRow
         let currentCell = languagesTableView.cellForRow(at: indexPath!) as! LanguageViewCell
         
-        selectedLangId = currentCell.language.id
+        selectedLang = currentCell.language
         self.delegate?.selectLanguage(selectedLang: currentCell.language)
         
         languagesTableView.reloadData()

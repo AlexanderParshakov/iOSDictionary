@@ -9,10 +9,11 @@
 import UIKit
 
 class DictionaryViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var meaningLabel: UILabel!
     @IBOutlet weak var customBackgroundView: UIView!
+    @IBOutlet weak var sourceLabel: UILabel!
     
     var wordUnit: WordUnit = WordUnit()
     
@@ -20,17 +21,15 @@ class DictionaryViewCell: UITableViewCell {
         self.wordUnit = word
         contentLabel.text = word.content
         meaningLabel.text = word.meaning
+        if sourceLabel != nil {
+            sourceLabel.text = word.source.name
+        }
         setupBackgroundView()
     }
     func setupBackgroundView() {
         selectionStyle = .none
         backgroundColor = .clear
-//        customBackgroundView.backgroundColor = Constants.Colors.darkGrey
         customBackgroundView.layer.cornerRadius = 15
+        customBackgroundView.setSlightShadow(shadowColor: .systemGray)
     }
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//
-//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10))
-//    }
 }

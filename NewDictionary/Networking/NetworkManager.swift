@@ -7,11 +7,18 @@
 //
 
 import Foundation
-import CoreData
 import RealmSwift
 import Alamofire
+import SwiftyJSON
+
+protocol AddWordScreenDelegate {
+    func termWasAdded(term: WordUnit)
+}
 
 struct NetworkManager {
+    
+    static var addWordDelegate: AddWordScreenDelegate?
+    
     
     struct WordUnits {
         
@@ -39,7 +46,6 @@ struct NetworkManager {
                 }
             }.resume()
         }
-        
         static func getById(wordId:Int, completion: @escaping (Swift.Result<WordUnit, Error>) -> Void) {
             URLSession.shared.dataTask(with: URLs.WordUnitMethods.getById(forUserLogin: "AlexanderParshakov", forLanguage: 1, forWordWithId: wordId)) {
                 (data, response, error) in
@@ -59,10 +65,36 @@ struct NetworkManager {
                 }
             }.resume()
         }
-        static func postWord(parameters: [String:String]) {
-            Alamofire.request(wordUnitsAPI, method: .post, parameters: parameters)
+        static func postTerm(term: WordUnit) {
+            guard let url = URL(string: NetworkManager.WordUnits.wordUnitsAPI) else { return }
+            
+            var finalTerm = term
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.httpBody = URLs.WordUnitMethods.buildBodyForTermPost(term: term)
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+            
+            Alamofire.request(request).responseJSON { (response) in
+                switch response.result {
+                    case .success(let termData):
+                        let json = JSON(termData)
+                        print(termData)
+                        print(json)
+                        if let termId = json["Id"].int {
+                            finalTerm.id = termId
+                            RealmManager.WordUnits.persistTerm(term: finalTerm)
+                            addWordDelegate?.termWasAdded(term: finalTerm)
+                        }
+                        print(response)
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                }
+            }
         }
     }
+    
     struct Sources {
         
         static func getAll(completion: @escaping (Swift.Result<Array<Source>, Error>) -> Void) {
@@ -108,6 +140,7 @@ struct NetworkManager {
     }
     
     struct Tags {
+        static let tagsAPI = "https://dictionary-webservice.azurewebsites.net/api/tags"
         
         static func getAll(completion: @escaping (Swift.Result<Array<Tag>, Error>) -> Void) {
             URLSession.shared.dataTask(with: URLs.TagMethods.getAll(forUserLogin: "AlexanderParshakov", withPassword: "123")) {
@@ -128,6 +161,33 @@ struct NetworkManager {
                     }
                 }
             }.resume()
+        }
+        static func postTag(tag: Tag) {
+            guard let url = URL(string: NetworkManager.Tags.tagsAPI) else { return }
+            
+            let finalTag = tag
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.httpBody = URLs.TagMethods.buildBodyForTagPost(tag: tag)
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+            
+            Alamofire.request(request).responseJSON { (response) in
+                switch response.result {
+                    case .success(let tagData):
+                        let json = JSON(tagData)
+                        print(tagData)
+                        print(json)
+                        if let termId = json["Id"].int {
+                            finalTag.id = termId
+                            RealmManager.Tags.persistTag(tag: finalTag)
+                        }
+                        print(response)
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                }
+            }
         }
     }
     
@@ -154,6 +214,36 @@ struct NetworkManager {
                 }
             }.resume()
         }
+    }
+    
+    struct TermTypes {
+        static let termTypesAPI = "https://dictionary-webservice.azurewebsites.net/api"
+        static func getTypes(completion: @escaping (Swift.Result<Array<TermType>, Error>) -> Void) {
+            guard let url = URL(string: termTypesAPI) else { return }
+            
+            URLSession.shared.dataTask(with: url) {
+                (data, response, error) in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        completion(.failure(error))
+                        print("Some error")
+                    }
+                    guard let data = data else { return }
+                    do {
+                        let types = try JSONDecoder().decode(Array<TermType>.self, from: data)
+                        completion(.success(types))
+                        RealmManager.Types.persist(fromArray: types)
+                    } catch let jsonError {
+                        print("Failed to decode", jsonError)
+                        completion(.failure(jsonError))
+                    }
+                }
+            }.resume()
+        }
+    }
+    
+    struct Users {
+        
     }
 }
 

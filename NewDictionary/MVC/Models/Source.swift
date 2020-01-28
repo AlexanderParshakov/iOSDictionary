@@ -9,25 +9,38 @@
 import Foundation
 import UIKit
 
-struct Source: Decodable {
+class Source: NSObject, Decodable, Encodable, NSSecureCoding {
+    static var supportsSecureCoding: Bool = true
+    
     
     var id: Int
     var name: String
-    var imageData: Data
+    var imageData: Data?
     var wordUnits: [WordUnit]?
     
-    init () {
+    override init () {
         id = 0
         name = ""
         imageData = Data()
     }
-    init(id: Int, name: String, imageData: Data) {
+    required convenience init(coder aDecoder: NSCoder) {
+        let id = aDecoder.decodeInteger(forKey: "id")
+        let name = aDecoder.decodeObject(forKey: "name") as! String
+        self.init(id: id, name: name, imageData: nil)
+    }
+
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(id, forKey: "id")
+        aCoder.encode(name, forKey: "name")
+    }
+    convenience init(id: Int, name: String, imageData: Data?) {
+        self.init()
         self.id = id
         self.name = name
         self.imageData = imageData
     }
     
-    init(realmSource: RealmSource) {
+    convenience init(realmSource: RealmSource) {
         self.init()
         
         self.id = Int(realmSource.id)!
@@ -39,4 +52,11 @@ struct Source: Decodable {
             self.wordUnits?.append(wordUnit)
         })
     }
+    convenience init (realmWordSource: RealmWordSource) {
+        self.init()
+        
+        self.id = Int(realmWordSource.id)!
+        self.name = realmWordSource.name
+    }
+    
 }

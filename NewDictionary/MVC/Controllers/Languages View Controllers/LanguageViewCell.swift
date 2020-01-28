@@ -26,6 +26,13 @@ class LanguageViewCell: UITableViewCell {
         selectionStyle = .none
         backgroundColor = .clear
         customBackgroundView.layer.cornerRadius = 10
+        
+        customBackgroundView.layer.masksToBounds = false
+        customBackgroundView.layer.shadowColor = UIColor.systemGray .cgColor
+        customBackgroundView.layer.shadowOffset = CGSize(width: 3, height:  3)
+        customBackgroundView.layer.shadowRadius = 40
+        customBackgroundView.layer.shadowOpacity = 0.3
+        bringSubviewToFront(customBackgroundView)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

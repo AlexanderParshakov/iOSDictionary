@@ -9,10 +9,10 @@
 "dictionary_main_title" = "My Dictionary";
 "dictionary_search_words" = "Search words";
 "dictionary_search_tags_to_add" = "Search tags to add";
-"dictionary_input_content" = "Input content...";
-"dictionary_input_meaning" = "Input meaning or translation...";
-"dictionary_input_example" = "Add an example(s)...";
-"dictionary_input_note" = "Add a note...";
+"dictionary_input_content" = "A word, sentence, or concept";
+"dictionary_input_meaning" = "Explanation to term if necessary";
+"dictionary_input_example" = "A memorizing example";
+"dictionary_input_note" = "Interesting facts or additions";
 
 
 "sources_main_title" = "Sources";

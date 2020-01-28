@@ -11,12 +11,17 @@
 		A5068EBE2381B2D200BF974B /* SelectSourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5068EBD2381B2D200BF974B /* SelectSourceCell.swift */; };
 		A50DB306237B580100294BBD /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50DB305237B580100294BBD /* Animator.swift */; };
 		A50DB308237B59C800294BBD /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50DB307237B59C800294BBD /* UITableView+Ext.swift */; };
+		A513D3D323985D2000CB7057 /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A513D3D223985D2000CB7057 /* GreetingViewController.swift */; };
 		A51BEC1E235A18070068F039 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = A560BAF22359F63E00CF645B /* Source.swift */; };
 		A51BEC1F235A18560068F039 /* WordUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A560BAF32359F63E00CF645B /* WordUnit.swift */; };
 		A51BEC21235A3AFC0068F039 /* trailRefreshControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = A51BEC20235A3AFC0068F039 /* trailRefreshControl.xib */; };
 		A527A272236ABB8C00BB644E /* Dictionary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A527A271236ABB8C00BB644E /* Dictionary.storyboard */; };
+		A528B0EE238C033000EBCC22 /* RealmType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B0ED238C033000EBCC22 /* RealmType.swift */; };
+		A529CB01238DDD1B001A21DD /* RealmWordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A529CB00238DDD1B001A21DD /* RealmWordType.swift */; };
 		A5307B1E23761BF5007E4B77 /* Comparables.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5307B1D23761BF5007E4B77 /* Comparables.swift */; };
 		A534E82C2378B20500A59BD1 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A534E82B2378B20500A59BD1 /* String+Ext.swift */; };
+		A542B6CF23992C4800EF1E95 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A542B6CE23992C4800EF1E95 /* UIButton+Ext.swift */; };
+		A542B6D123992CF500EF1E95 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A542B6D023992CF500EF1E95 /* SignInViewController.swift */; };
 		A556873D235D04D7009888FC /* redLoader.json in Resources */ = {isa = PBXBuildFile; fileRef = A556873C235D04D7009888FC /* redLoader.json */; };
 		A560BB272359F63F00CF645B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A560BAE02359F63E00CF645B /* NetworkManager.swift */; };
 		A560BB292359F63F00CF645B /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A560BAE22359F63E00CF645B /* URLs.swift */; };
@@ -37,13 +42,21 @@
 		A560BB4D2359F63F00CF645B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A560BB172359F63F00CF645B /* SceneDelegate.swift */; };
 		A560BB502359F63F00CF645B /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A560BB1E2359F63F00CF645B /* UIImageView+Ext.swift */; };
 		A560BB59235A021800CF645B /* blueLoader.json in Resources */ = {isa = PBXBuildFile; fileRef = A560BB58235A021800CF645B /* blueLoader.json */; };
+		A5643AC5239272CD007E8A8E /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5643AC4239272CD007E8A8E /* UserDefaultsManager.swift */; };
 		A565F030236ABFB100980E97 /* Sources.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A565F02F236ABFB100980E97 /* Sources.storyboard */; };
 		A565F032236AC06E00980E97 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A565F031236AC06E00980E97 /* Settings.storyboard */; };
+		A56712C0238BEB72000AC64A /* RealmWordSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56712BF238BEB72000AC64A /* RealmWordSource.swift */; };
+		A56712C3238BFC2F000AC64A /* TypeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56712C2238BFC2F000AC64A /* TypeViewCell.swift */; };
+		A56712C5238BFCD9000AC64A /* TermType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56712C4238BFCD9000AC64A /* TermType.swift */; };
 		A56A914F23703A3F00C0B9FE /* BlurView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A914E23703A3F00C0B9FE /* BlurView+Ext.swift */; };
 		A56A915123706B5500C0B9FE /* RealmWordTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A915023706B5500C0B9FE /* RealmWordTag.swift */; };
 		A56A91532371505D00C0B9FE /* AddWordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A91522371505D00C0B9FE /* AddWordScreen.swift */; };
 		A581867F23800E8400C9730E /* LanguageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A581867E23800E8400C9730E /* LanguageViewCell.swift */; };
 		A5821053237B6BD100A685E6 /* UIScrollViewSubclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5821052237B6BD100A685E6 /* UIScrollViewSubclass.swift */; };
+		A5950BC223A6DB8100056CAD /* EditWordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5950BC123A6DB8100056CAD /* EditWordScreen.swift */; };
+		A59B400B239E3FF400D3923F /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A59B400A239E3FF400D3923F /* Authentication.storyboard */; };
+		A59F6D8223DF52AD003EA169 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59F6D8123DF52AD003EA169 /* NavigationManager.swift */; };
+		A5ABBBCB23CCE8FC0049C705 /* NCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ABBBCA23CCE8FC0049C705 /* NCManager.swift */; };
 		A5AECFE323730FBC003F2648 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AECFE223730FBC003F2648 /* CustomButton.swift */; };
 		A5AECFE523735C5D003F2648 /* completionAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = A5AECFE423735C5D003F2648 /* completionAnimation.json */; };
 		A5B6BD7B2380040B00CC2EEC /* RealmLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B6BD7A2380040B00CC2EEC /* RealmLanguage.swift */; };
@@ -74,10 +87,15 @@
 		A5068EBD2381B2D200BF974B /* SelectSourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSourceCell.swift; sourceTree = "<group>"; };
 		A50DB305237B580100294BBD /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		A50DB307237B59C800294BBD /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		A513D3D223985D2000CB7057 /* GreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
 		A51BEC20235A3AFC0068F039 /* trailRefreshControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = trailRefreshControl.xib; sourceTree = "<group>"; };
 		A527A271236ABB8C00BB644E /* Dictionary.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dictionary.storyboard; sourceTree = "<group>"; };
+		A528B0ED238C033000EBCC22 /* RealmType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmType.swift; sourceTree = "<group>"; };
+		A529CB00238DDD1B001A21DD /* RealmWordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmWordType.swift; sourceTree = "<group>"; };
 		A5307B1D23761BF5007E4B77 /* Comparables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comparables.swift; sourceTree = "<group>"; };
 		A534E82B2378B20500A59BD1 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		A542B6CE23992C4800EF1E95 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
+		A542B6D023992CF500EF1E95 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		A556873C235D04D7009888FC /* redLoader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = redLoader.json; sourceTree = "<group>"; };
 		A560BAC12359F25A00CF645B /* NewDictionary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewDictionary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A560BADD2359F63E00CF645B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -102,13 +120,21 @@
 		A560BB172359F63F00CF645B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A560BB1E2359F63F00CF645B /* UIImageView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		A560BB58235A021800CF645B /* blueLoader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = blueLoader.json; sourceTree = "<group>"; };
+		A5643AC4239272CD007E8A8E /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		A565F02F236ABFB100980E97 /* Sources.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sources.storyboard; sourceTree = "<group>"; };
 		A565F031236AC06E00980E97 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		A56712BF238BEB72000AC64A /* RealmWordSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmWordSource.swift; sourceTree = "<group>"; };
+		A56712C2238BFC2F000AC64A /* TypeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeViewCell.swift; sourceTree = "<group>"; };
+		A56712C4238BFCD9000AC64A /* TermType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermType.swift; sourceTree = "<group>"; };
 		A56A914E23703A3F00C0B9FE /* BlurView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlurView+Ext.swift"; sourceTree = "<group>"; };
 		A56A915023706B5500C0B9FE /* RealmWordTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmWordTag.swift; sourceTree = "<group>"; };
 		A56A91522371505D00C0B9FE /* AddWordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordScreen.swift; sourceTree = "<group>"; };
 		A581867E23800E8400C9730E /* LanguageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewCell.swift; sourceTree = "<group>"; };
 		A5821052237B6BD100A685E6 /* UIScrollViewSubclass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewSubclass.swift; sourceTree = "<group>"; };
+		A5950BC123A6DB8100056CAD /* EditWordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWordScreen.swift; sourceTree = "<group>"; };
+		A59B400A239E3FF400D3923F /* Authentication.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
+		A59F6D8123DF52AD003EA169 /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
+		A5ABBBCA23CCE8FC0049C705 /* NCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCManager.swift; sourceTree = "<group>"; };
 		A5AECFE223730FBC003F2648 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A5AECFE423735C5D003F2648 /* completionAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = completionAnimation.json; sourceTree = "<group>"; };
 		A5B6BD7A2380040B00CC2EEC /* RealmLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLanguage.swift; sourceTree = "<group>"; };
@@ -162,9 +188,34 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A513D3D123985BDC00CB7057 /* Authentication View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A513D3D223985D2000CB7057 /* GreetingViewController.swift */,
+				A542B6D023992CF500EF1E95 /* SignInViewController.swift */,
+			);
+			path = "Authentication View Controllers";
+			sourceTree = "<group>";
+		};
+		A5212FFA238BCFF700CDD009 /* Realm Models */ = {
+			isa = PBXGroup;
+			children = (
+				A5BF1DA62374A9B200520AC0 /* RealmTag.swift */,
+				A528B0ED238C033000EBCC22 /* RealmType.swift */,
+				A5B6BD7A2380040B00CC2EEC /* RealmLanguage.swift */,
+				A56A915023706B5500C0B9FE /* RealmWordTag.swift */,
+				A5D16215236F711900985E48 /* RealmWordUnit.swift */,
+				A5D16213236F700A00985E48 /* RealmSource.swift */,
+				A56712BF238BEB72000AC64A /* RealmWordSource.swift */,
+				A529CB00238DDD1B001A21DD /* RealmWordType.swift */,
+			);
+			path = "Realm Models";
+			sourceTree = "<group>";
+		};
 		A527A270236ABB6100BB644E /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				A59B400A239E3FF400D3923F /* Authentication.storyboard */,
 				A560BB142359F63F00CF645B /* Main.storyboard */,
 				A527A271236ABB8C00BB644E /* Dictionary.storyboard */,
 				A565F02F236ABFB100980E97 /* Sources.storyboard */,
@@ -214,6 +265,7 @@
 				A560BAE22359F63E00CF645B /* URLs.swift */,
 				A560BAE02359F63E00CF645B /* NetworkManager.swift */,
 				A5D16211236F68F800985E48 /* RealmManager.swift */,
+				A5643AC4239272CD007E8A8E /* UserDefaultsManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -221,15 +273,12 @@
 		A560BAE42359F63E00CF645B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A56712C4238BFCD9000AC64A /* TermType.swift */,
 				A560BAF22359F63E00CF645B /* Source.swift */,
 				A560BAF32359F63E00CF645B /* WordUnit.swift */,
 				A560BAF42359F63E00CF645B /* Tag.swift */,
-				A5D16213236F700A00985E48 /* RealmSource.swift */,
-				A5D16215236F711900985E48 /* RealmWordUnit.swift */,
-				A56A915023706B5500C0B9FE /* RealmWordTag.swift */,
-				A5BF1DA62374A9B200520AC0 /* RealmTag.swift */,
-				A5B6BD7A2380040B00CC2EEC /* RealmLanguage.swift */,
 				A5B6BD7C2380044A00CC2EEC /* Language.swift */,
+				A5212FFA238BCFF700CDD009 /* Realm Models */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -265,6 +314,8 @@
 			children = (
 				A5BAAA69235DDD8800775BFF /* LottieManager.swift */,
 				A50DB305237B580100294BBD /* Animator.swift */,
+				A5ABBBCA23CCE8FC0049C705 /* NCManager.swift */,
+				A59F6D8123DF52AD003EA169 /* NavigationManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -272,6 +323,8 @@
 		A560BB042359F63E00CF645B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A513D3D123985BDC00CB7057 /* Authentication View Controllers */,
+				A56712C1238BFBFA000AC64A /* Types View Controllers */,
 				A5B6BD802380086500CC2EEC /* Languages View Controllers */,
 				A5C29661237463E7000CCB9D /* Tags View Controllers */,
 				A560BB052359F63E00CF645B /* Sources View Controllers */,
@@ -301,6 +354,7 @@
 				A560BB0B2359F63E00CF645B /* WordScreen.swift */,
 				A560BB0C2359F63E00CF645B /* DictionaryScreen.swift */,
 				A56A91522371505D00C0B9FE /* AddWordScreen.swift */,
+				A5950BC123A6DB8100056CAD /* EditWordScreen.swift */,
 			);
 			path = "Dictionary View Controllers";
 			sourceTree = "<group>";
@@ -343,9 +397,18 @@
 				A50DB307237B59C800294BBD /* UITableView+Ext.swift */,
 				A5821052237B6BD100A685E6 /* UIScrollViewSubclass.swift */,
 				A5FE21F0237DED7200B637CD /* UIView+Ext.swift */,
+				A542B6CE23992C4800EF1E95 /* UIButton+Ext.swift */,
 			);
 			name = Extensions;
 			path = ../../Extensions;
+			sourceTree = "<group>";
+		};
+		A56712C1238BFBFA000AC64A /* Types View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A56712C2238BFC2F000AC64A /* TypeViewCell.swift */,
+			);
+			path = "Types View Controllers";
 			sourceTree = "<group>";
 		};
 		A5B6BD802380086500CC2EEC /* Languages View Controllers */ = {
@@ -467,6 +530,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A59B400B239E3FF400D3923F /* Authentication.storyboard in Resources */,
 				A560BB4B2359F63F00CF645B /* Main.storyboard in Resources */,
 				A556873D235D04D7009888FC /* redLoader.json in Resources */,
 				A560BB2A2359F63F00CF645B /* LaunchScreen.storyboard in Resources */,
@@ -533,13 +597,17 @@
 				A5EA13D0235CEFF200E49883 /* CustomSearchBar.swift in Sources */,
 				A560BB272359F63F00CF645B /* NetworkManager.swift in Sources */,
 				A5B6BD7F2380082B00CC2EEC /* SelectLanguageScreen.swift in Sources */,
+				A529CB01238DDD1B001A21DD /* RealmWordType.swift in Sources */,
 				A560BB482359F63F00CF645B /* ProfileViewController.swift in Sources */,
+				A56712C3238BFC2F000AC64A /* TypeViewCell.swift in Sources */,
 				A5B6BD7D2380044A00CC2EEC /* Language.swift in Sources */,
 				A5BAAA6A235DDD8800775BFF /* LottieManager.swift in Sources */,
 				A5D4DAA72364E3B90053B898 /* UILabel+Ext.swift in Sources */,
 				A560BB432359F63F00CF645B /* SourcesScreen.swift in Sources */,
+				A56712C0238BEB72000AC64A /* RealmWordSource.swift in Sources */,
 				A5C296632374640D000CCB9D /* AddTagsScreen.swift in Sources */,
 				A5307B1E23761BF5007E4B77 /* Comparables.swift in Sources */,
+				A59F6D8223DF52AD003EA169 /* NavigationManager.swift in Sources */,
 				A560BB472359F63F00CF645B /* SettingsViewController.swift in Sources */,
 				A560BB4D2359F63F00CF645B /* SceneDelegate.swift in Sources */,
 				A51BEC1F235A18560068F039 /* WordUnit.swift in Sources */,
@@ -547,11 +615,13 @@
 				A560BB452359F63F00CF645B /* WordScreen.swift in Sources */,
 				A560BB442359F63F00CF645B /* DictionaryViewCell.swift in Sources */,
 				A581867F23800E8400C9730E /* LanguageViewCell.swift in Sources */,
+				A528B0EE238C033000EBCC22 /* RealmType.swift in Sources */,
 				A560BB502359F63F00CF645B /* UIImageView+Ext.swift in Sources */,
 				A5068EBE2381B2D200BF974B /* SelectSourceCell.swift in Sources */,
 				A50DB306237B580100294BBD /* Animator.swift in Sources */,
 				A560BB422359F63F00CF645B /* SourcesViewCell.swift in Sources */,
 				A5D16212236F68F800985E48 /* RealmManager.swift in Sources */,
+				A5ABBBCB23CCE8FC0049C705 /* NCManager.swift in Sources */,
 				A56A915123706B5500C0B9FE /* RealmWordTag.swift in Sources */,
 				A5EA13D2235CF67800E49883 /* OverrideFonts.swift in Sources */,
 				A56A91532371505D00C0B9FE /* AddWordScreen.swift in Sources */,
@@ -559,21 +629,27 @@
 				A5AECFE323730FBC003F2648 /* CustomButton.swift in Sources */,
 				A5FE21F3237E0F2400B637CD /* InputField.swift in Sources */,
 				A5D16216236F711900985E48 /* RealmWordUnit.swift in Sources */,
+				A542B6D123992CF500EF1E95 /* SignInViewController.swift in Sources */,
 				A5B6BD7B2380040B00CC2EEC /* RealmLanguage.swift in Sources */,
 				A5D16214236F700A00985E48 /* RealmSource.swift in Sources */,
+				A56712C5238BFCD9000AC64A /* TermType.swift in Sources */,
 				A534E82C2378B20500A59BD1 /* String+Ext.swift in Sources */,
 				A5C29665237499E8000CCB9D /* AddTagsCell.swift in Sources */,
 				A5BF1DA72374A9B200520AC0 /* RealmTag.swift in Sources */,
 				A560BB292359F63F00CF645B /* URLs.swift in Sources */,
 				A560BB3B2359F63F00CF645B /* Constants.swift in Sources */,
 				A5CA7215236B850B00E45C9A /* Localizer.swift in Sources */,
+				A5643AC5239272CD007E8A8E /* UserDefaultsManager.swift in Sources */,
 				A51BEC1E235A18070068F039 /* Source.swift in Sources */,
 				A560BB412359F63F00CF645B /* SourceScreen.swift in Sources */,
 				A56A914F23703A3F00C0B9FE /* BlurView+Ext.swift in Sources */,
 				A560BB462359F63F00CF645B /* DictionaryScreen.swift in Sources */,
+				A542B6CF23992C4800EF1E95 /* UIButton+Ext.swift in Sources */,
+				A5950BC223A6DB8100056CAD /* EditWordScreen.swift in Sources */,
 				A5FE21F1237DED7200B637CD /* UIView+Ext.swift in Sources */,
 				A5CA720C236B7D1F00E45C9A /* ProfileScreen.swift in Sources */,
 				A560BB4C2359F63F00CF645B /* AppDelegate.swift in Sources */,
+				A513D3D323985D2000CB7057 /* GreetingViewController.swift in Sources */,
 				A5068EBC2381559100BF974B /* SelectSourceScreen.swift in Sources */,
 				A560BB382359F63F00CF645B /* Tag.swift in Sources */,
 			);

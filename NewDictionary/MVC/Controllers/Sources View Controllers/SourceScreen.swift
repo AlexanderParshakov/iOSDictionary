@@ -45,7 +45,7 @@ class SourceScreen: UIViewController {
         
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        originalImageHeight = 350
+        originalImageHeight = 343
         sourcesTableHeightConstraint.constant = originalTableHeight
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +81,8 @@ class SourceScreen: UIViewController {
     func setupValues() {
         sourceName.text = source.name
         
-        sourceImage.image = UIImage(data: source.imageData)
+        guard let imageData = source.imageData else { return }
+        sourceImage.image = UIImage(data: imageData)
     }
 }
 
@@ -140,23 +141,7 @@ extension SourceScreen: UIScrollViewDelegate {
                 })
             }
         }
-//        UIView.animate(withDuration: 0.5) {
-//            self.view.layoutIfNeeded()
-//        }
-        
-        // update the new position acquired
-        //        self.lastContentOffset = scrollView.contentOffset.y
-        
-        //
     }
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        if wordTableView.contentOffset.y <= sourcesTableHeightConstraint.constant {
-//
-//            UIView.animate(withDuration: 0.3, animations: {
-//                self.scrollToFirstRow()
-//            }, completion: nil)
-//        }
-//    }
     func scrollToFirstRow() {
         let indexPath = IndexPath(row: 0, section: 0)
         if wordTableView.numberOfRows(inSection: 0) != 0 {
